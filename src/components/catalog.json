@@ -1,0 +1,9 @@
+{ "catalog": [
+    {
+        "img": "../assets/img/camera.jpg",
+        "name": "BMW Series 3",
+        "descrip": "Lorem ipsum dolor sit amet",
+        "price": 15000
+    }
+]
+}
