@@ -8,6 +8,7 @@
         <div class="basket_wrap">
           <router-link to="/basket">
             <img class="basket_img" src="../assets/img/shopping.svg">
+            <div class="basket_point"></div>
           </router-link>
         </div>
       </div>
@@ -67,13 +68,12 @@ export default {
 
   data () {
     return {
-      msg: 'menushka',
     }
   },
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss">
 a {
   text-decoration: none;
 }
@@ -95,9 +95,8 @@ a {
   font-weight: bold;
 }
 .menu_elem a:hover{
-  border-bottom: 2px solid red;
+  border-bottom: 2px solid#ce4c4c;
 }
-
 
 #wrap_menu {
     height: 5vh;
@@ -116,7 +115,13 @@ a {
   margin: auto;
 }
 
-.left_part, .right_part{
+.left_part{
+  float: left;
+  height: 100%;
+  width: 26%;
+  min-width: 100px;
+}
+.right_part{
   float: left;
   height: 100%;
   width: 27%;
@@ -125,7 +130,7 @@ a {
 .middle_part{
   float: left;
   height: 100%;
-  width: 46%;
+  width: 47%;
   min-width: 200px;
 }
 .logo_wrap{
@@ -141,9 +146,19 @@ a {
 .basket_wrap{
   float: left;
   width: 5%;
-  min-width: 20px;
+  min-width: 16px;
   height: 100%;
   margin-left: 12.5%;
+  position: relative;
+}
+.basket_point{
+  width: 6px;
+  height: 6px;
+  position: absolute;
+  background-color: #ce4c4c;
+  border-radius: 50%;
+  top:9px;
+  right: -6px;
 }
 .basket_img{
   width: 100%;

@@ -49,6 +49,10 @@ export default {
     border-radius: 50%;
     cursor: pointer;
 }
+.mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right{
+    display: none !important;
+}
+
 </style>
 
 

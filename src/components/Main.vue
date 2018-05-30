@@ -3,20 +3,14 @@
     <div class="navigate_row">
       <div class="navigate_col">
         <div class="navigate_line_wrap">
-          <div class="navigate_arrow navigate_arrow_up">
-            <i class="arrow up"></i>
+          <div class="navigate_arrow navigate_arrow_up" @click="prev()">
+            <img class="arrow up" src="../assets/img/down-arrow.svg">
           </div>
-          <div class="naviate_point" @click="ref(1)"></div>
           <div class="navigate_line navigate_line_top"></div>
-          <div class="naviate_point">
-            <a href="#page1"></a>
-          </div>
           <div class="navigate_line navigate_line_mid"></div>
-          <div class="naviate_point" @click="moveTo(3)"></div>
           <div class="navigate_line navigate_line_bot"></div>
-          <div class="naviate_point" @click="ref(4)"></div>
-          <div class="navigate_arrow navigate_arrow_down">
-            <i class="arrow down"></i>
+          <div class="navigate_arrow navigate_arrow_down" @click="next()">
+            <img class="arrow down" src="../assets/img/down-arrow.svg">
           </div>
         </div>
       </div>
@@ -26,60 +20,73 @@
       <img src="../assets/img/bg_main.jpg"/>
     </div>
     <full-page :options="options" id="fullpage">
-      <div class="section first_section" id="first" data-anchor="page1">
+      <div class="section first_section" id="first">
         <div class="wrap_section">
           <div class="left_part_section part_section">
             <table>
               <tr>
                 <td>
                   <div class="content_section">
-                    <p class="title">МОБИЛЬНОЕ<br/>ПРИЛОЖЕНИЕ</p>
-                    <p class="descript">
-                      С видеорегистратора <span class="plain_span">LTG-CAM</span> вам больше не нужно<br/>
-                      разглядывать меню на маленьком мониторе - в нашем<br/>
-                      видеорегистраторе установлен WI-FI.
+                    <p class="title">
+                      ВИДЕОРЕГИСТРАТОР<br/>
+                      LTG-CAM
                     </p>
-                    <p class="header_text">Специальное приложение LTG-CAM позволит вам:</p>
-                    <div class="text_block">
+                    <p class="descript">
+                      Сконструирован специально для вашего автомобиля
+                    </p>
+                    <div class="text_block_col text_block_col_left">
                       <div class="first_col text_col">
-                        <div class="icon_ok">
-                          <img src="../assets/img/check.svg"/>
+                        <div class="icon_large">
+                          <img src="../assets/img/1080p.svg"/>
                         </div>
-                        <div class="text_col_content_wrap">
+                        <div class="text_col_content_wrap text_col_content_wrap_row">
                           <p class="text_col_content">
-                            <span class="plain_span">Управлять всеми<br/>
-                            настройками</span> через<br/>
-                            ваш смартфон или<br/>
-                            планшет
+                              Full HD<br/>
+                              съёмка
+                          </p>
+                        </div>
+                      </div>
+                      <div class="first_col text_col">
+                        <div class="icon_large">
+                          <img src="../assets/img/wave.svg"/>
+                        </div>
+                        <div class="text_col_content_wrap text_col_content_wrap_row">
+                          <p class="text_col_content">
+                              Не создает помех<br/>
+                              в работе других<br/>
+                              систем
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text_block_col text_block_col_right">
+                      <div class="second_col text_col">
+                        <div class="icon_large">
+                          <img src="../assets/img/view.svg"/>
+                        </div>
+                        <div class="text_col_content_wrap text_col_content_wrap_row">
+                          <p class="text_col_content">
+                            Не мешает<br/>
+                            обзору
                           </p>
                         </div>
                       </div>
                       <div class="second_col text_col">
-                        <div class="icon_ok">
-                          <img src="../assets/img/check.svg"/>
+                        <div class="icon_large">
+                          <img src="../assets/img/search.svg"/>
                         </div>
-                        <div class="text_col_content_wrap">
+                        <div class="text_col_content_wrap text_col_content_wrap_row">
                           <p class="text_col_content">
-                            <span class="plain_span">Скачивать</span> видео<br/>
-                            и фото
-                          </p>
-                        </div>
-                      </div>
-                      <div class="third_col text_col">
-                        <div class="icon_ok">
-                          <img src="../assets/img/check.svg"/>
-                        </div>
-                        <div class="text_col_content_wrap">
-                          <p class="text_col_content">
-                          <span class="plain_span">Просматривать все<br/>
-                          файлы</span> на вашем<br/>
-                          устройстве
+                            Не привлекает<br/>
+                            внимание
                           </p>
                         </div>
                       </div>
                     </div>
                     <div class="button_download">
-                      <button>СКАЧАТЬ ПРИЛОЖЕНИЕ</button>
+                      <router-link to="/catalog">
+                      <button>ВЫБРАТЬ КАМЕРУ</button>
+                      </router-link>
                     </div>
                   </div>
                 </td>
@@ -90,7 +97,7 @@
             <table>
               <tr>
                 <td>
-                  <img src="../assets/img/ph.png"/>
+                  <img src="../assets/img/cam.png"/>
                 </td>
               </tr>
             </table>
@@ -158,7 +165,9 @@
                       </div>
                     </div>
                     <div class="button_download">
+                      <router-link to="/catalog">
                       <button>СДЕЛАТЬ ЗАКАЗ</button>
+                      </router-link>
                     </div>
                   </div>
                 </td>
@@ -183,64 +192,55 @@
               <tr>
                 <td>
                   <div class="content_section">
-                    <p class="title">
-                      ВИДЕОРЕГИСТРАТОР<br/>
-                      LTG-CAM
-                    </p>
+                    <p class="title">МОБИЛЬНОЕ<br/>ПРИЛОЖЕНИЕ</p>
                     <p class="descript">
-                      Сконструирован специально для вашего автомобиля
+                      С видеорегистратора <span class="plain_span">LTG-CAM</span> вам больше не нужно<br/>
+                      разглядывать меню на маленьком мониторе - в нашем<br/>
+                      видеорегистраторе установлен WI-FI.
                     </p>
-                    <div class="text_block_col text_block_col_left">
+                    <p class="header_text">Специальное приложение LTG-CAM позволит вам:</p>
+                    <div class="text_block">
                       <div class="first_col text_col">
-                        <div class="icon_large">
-                          <img src="../assets/img/1080p.svg"/>
+                        <div class="icon_ok">
+                          <img src="../assets/img/check.svg"/>
                         </div>
-                        <div class="text_col_content_wrap text_col_content_wrap_row">
+                        <div class="text_col_content_wrap">
                           <p class="text_col_content">
-                              Full HD<br/>
-                              съёмка
-                          </p>
-                        </div>
-                      </div>
-                      <div class="first_col text_col">
-                        <div class="icon_large">
-                          <img src="../assets/img/wave.svg"/>
-                        </div>
-                        <div class="text_col_content_wrap text_col_content_wrap_row">
-                          <p class="text_col_content">
-                              Не создает помех<br/>
-                              в работе других<br/>
-                              систем
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="text_block_col text_block_col_right">
-                      <div class="second_col text_col">
-                        <div class="icon_large">
-                          <img src="../assets/img/view.svg"/>
-                        </div>
-                        <div class="text_col_content_wrap text_col_content_wrap_row">
-                          <p class="text_col_content">
-                            Не мешает<br/>
-                            обзору
+                            <span class="plain_span">Управлять всеми<br/>
+                            настройками</span> через<br/>
+                            ваш смартфон или<br/>
+                            планшет
                           </p>
                         </div>
                       </div>
                       <div class="second_col text_col">
-                        <div class="icon_large">
-                          <img src="../assets/img/search.svg"/>
+                        <div class="icon_ok">
+                          <img src="../assets/img/check.svg"/>
                         </div>
-                        <div class="text_col_content_wrap text_col_content_wrap_row">
+                        <div class="text_col_content_wrap">
                           <p class="text_col_content">
-                            Не привлекает<br/>
-                            внимание
+                            <span class="plain_span">Скачивать</span> видео<br/>
+                            и фото
+                          </p>
+                        </div>
+                      </div>
+                      <div class="third_col text_col">
+                        <div class="icon_ok">
+                          <img src="../assets/img/check.svg"/>
+                        </div>
+                        <div class="text_col_content_wrap">
+                          <p class="text_col_content">
+                          <span class="plain_span">Просматривать все<br/>
+                          файлы</span> на вашем<br/>
+                          устройстве
                           </p>
                         </div>
                       </div>
                     </div>
                     <div class="button_download">
-                      <button>ВЫБРАТЬ КАМЕРУ</button>
+                      <a href="#">
+                      <button>СКАЧАТЬ ПРИЛОЖЕНИЕ</button>
+                      </a>
                     </div>
                   </div>
                 </td>
@@ -251,7 +251,7 @@
             <table>
               <tr>
                 <td>
-                  <img src="../assets/img/cam.png"/>
+                  <img src="../assets/img/ph.png"/>
                 </td>
               </tr>
             </table>
@@ -276,40 +276,43 @@
         </div>
       </div>
     </full-page>
+    <app-soc-cop></app-soc-cop>
   </div>
 </template>
 
 <script>
 
 import FullPage from 'vue-fullpage.js';
-// import fullPageMixin from 'vue-fullpage.js/src/fullPageMixin.js';
-// import $ from 'jquery';
+import SocialCopir from './SocialCopir.vue'
 
 export default {
   name: 'Main',
-  // mixins: [FullPage.mixins,],
+
   components: {
-      FullPage
+      FullPage,
+      'AppSocCop': SocialCopir,
     },
 
   data () {
     return {
-      msg: 'menushka',
+      cur_page: 1,
       options: {
             paddingTop: '0',
-            navigation: false,
-            anchors: ['page1', 'page2', 'page3', 'page4']
+            navigation: true,
           }
     }
   },
 
   methods: {
-    ref: function (page_id) {
+    next(){
       $.fn.fullpage.moveSectionDown();
     },
+    prev(){
+      $.fn.fullpage.moveSectionUp();
+    },
     moveTo: function(page_id) {
-      $.fn.fullpage.moveTo(2, 2);
-    }
+      $.fn.fullpage.moveTo(page_id, page_id);
+    },
   },
 
   destroyed: function() {
@@ -319,24 +322,33 @@ export default {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss">
 .section{
   width: 100vw;
   height: 100vh;
   background-color: transparent;
 }
+@media all and (max-width: 1251px) {
+    .navigate_row{
+        left:95% !important;
+    }
+    #fp-nav{
+      left:95% !important;
+    }
+}
 .navigate_row{
   height: 250px;
   position: fixed;
-  width: 100%;
+  width: 20px;
   top:50%;
-  margin-top: -140px;
+  left: 87%;
+  margin-top: -125px;
+  margin-left: -20px;
   z-index: 9;
 }
 .navigate_col{
-  width: 74%;
+  width: 100%;
   height: 100%;
-  min-width: 1000px;
   margin: auto;
 }
 .navigate_line_wrap{
@@ -348,18 +360,11 @@ export default {
   width: 1px;
   background-color: white;
   height:60px;
+  margin-bottom:5px;
+  margin-top:5px;
   float: left;
 }
-.naviate_point{
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: transparent;
-  border: 1px solid white;
-  float: left;
-  margin-left: -4px;
-  cursor: pointer;
-}
+
 .navigate_arrow{
   height: 10px;
   width: 18px;
@@ -367,68 +372,20 @@ export default {
   margin-left: -9px;
   cursor: pointer;
 }
-.navigate_arrow i{
-  width: 5px;
-  height: 5px;
-  border: 1px solid white;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-}
-.navigate_arrow .arrow.up {
-    transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-}
-
-.navigate_arrow .arrow.down {
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-}
 .navigate_arrow_up{
   margin-bottom: 30px;
 }
 .navigate_arrow_down{
   margin-top: 20px;
 }
-#fp-nav{
-  z-index: 99;
+.arrow{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-// #fp-nav ul{
-//   width: 74%;
-//   height: 100%;
-//   min-width: 1000px;
-//   margin: auto;
-// }
-// #fp-nav li{
-//   width: 100% !important;
-//   margin-left: 0 !important;
-//   margin-top: 0 !important;
-//   margin-bottom: 57px !important
-// }
-// #fp-nav li a{
-//   float: right !important;
-//   width: 10px !important;
-//   height: 10px !important;
-// } 
-// #fp-nav li a.active span{
-//   width: 8px !important;
-//   height: 8px !important;
-//   margin: 0 !important;
-//   margin-left: 4px !important;
-//   top:0 !important;
-//   left:0 !important;
-//   background-color: white !important;
-// }
-// #fp-nav li a span{
-//   width: 8px !important;
-//   height: 8px !important;
-//   margin: 0 !important;
-//   margin-left: 4px !important;
-//   top:0 !important;
-//   left:0 !important;
-//   background-color: transparent !important;
-//   border: 1px solid white !important;
-// }
+.up{
+  transform: rotate(180deg);
+}
 .left_back{
   position: absolute;
   width: 50%;
@@ -495,7 +452,7 @@ export default {
   margin-top: 30px;
 }
 .button_download button{
-  background-color: #ce4c4c;
+  background-color: #cf3835;
   font-size: 0.8em;
   font-weight: bold;
   outline: none;
@@ -503,7 +460,12 @@ export default {
   padding: 10px 23px;
   padding-top: 12px;
 }
-
+.button_download button:hover{
+    background-color: #ce4c4c;
+}
+.button_download button:active{
+    background-color: #cf3835;
+}
 .left_part_section .title{
   font-weight: 700;
   font-size: 1.5em;
@@ -618,5 +580,50 @@ export default {
   vertical-align: middle;
   margin-top:20px;
   text-decoration: underline;
+}
+#fp-nav{
+  position: fixed;
+  width: 20px;
+  top:50%;
+  left: 87%;
+  height: 180px;
+  margin-left: -15px;
+  margin-top: -90px !important;
+  z-index: 9;
+}
+#fp-nav ul{
+  width: 10px;
+  height: 100%;
+  margin: auto;
+}
+#fp-nav li{
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 57px !important
+}
+#fp-nav li a{
+  float: right !important;
+  width: 10px !important;
+  height: 10px !important;
+} 
+#fp-nav li a.active span{
+  width: 8px !important;
+  height: 8px !important;
+  margin: 0 !important;
+  margin-left: 4px !important;
+  top:0 !important;
+  left:0 !important;
+  background-color: white !important;
+}
+#fp-nav li a span{
+  width: 8px !important;
+  height: 8px !important;
+  margin: 0 !important;
+  margin-left: 4px !important;
+  top:0 !important;
+  left:0 !important;
+  background-color: transparent !important;
+  border: 1px solid white !important;
 }
 </style>

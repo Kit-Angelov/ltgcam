@@ -23,7 +23,7 @@
                             </div>
                             <div class="basket_but_wrap">
                                 <div class="basket_but">
-                                    <img class="basket_but_img" src="../assets/img/add.svg"/>
+                                    <img class="basket_but_img" src="../assets/img/cancel.svg"/>
                                 </div>
                             </div>
                         </div>
@@ -38,21 +38,27 @@
                             <span class="sum-span">{{ sum }}</span>
                              Руб
                         </p>
-                        <button class="buy">ОФОРМИТЬ</button>
+                        <button class="buy" @click="buyClick()">ОФОРМИТЬ</button>
                     </div>
                 </div>
             </div>
         </div>
+        <app-soc-cop></app-soc-cop>
+        <div class="over" v-if="popup" @click="closePopup()"></div>
+        <app-order v-if="popup"></app-order>
   </div>
 </template>
 
 <script>
+import SocialCopir from './SocialCopir.vue'
+import Order from './Order.vue'
 export default {
   name: 'Basket',
   data () {
     return {
         count: 4,
         sum: 60000,
+        popup: false,
         content: [
             {
             "img": "../assets/img/camera.jpg",
@@ -93,8 +99,17 @@ export default {
         ]
     }
   },
+  methods: {
+        buyClick() {
+            this.popup = true;
+        },
+        closePopup() {
+            this.popup = false;
+        },
+  },
   components: {
-
+      'AppSocCop': SocialCopir,
+      'AppOrder': Order,
   }
 }
 </script>
@@ -225,7 +240,13 @@ export default {
     width: 20px;
     height: 20px;
     float: left;
-    background-color:#ce4c4c;
+    background-color:#cf3835;
+}
+.basket_but:hover{
+    background-color: #ce4c4c;
+}
+.basket_but:active{
+    background-color: #cf3835;
 }
 .basket_but img{
     width: 10px;
@@ -249,7 +270,7 @@ export default {
     font-size: 0.8em;
 }
 .buy{
-    background-color: #ce4c4c;
+    background-color: #cf3835;
     font-size: 0.8em;
     font-weight: bold;
     outline: none;
@@ -257,5 +278,34 @@ export default {
     padding: 10px 23px;
     padding-top: 12px;
     margin-top: 10px;
+}
+.buy:hover{
+    background-color: #ce4c4c;
+}
+.buy:active{
+    background-color: #cf3835;
+}
+.wrap_content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.wrap_content::-webkit-scrollbar-track {
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.wrap_content::-webkit-scrollbar-thumb {
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+}
+.over{
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    position: fixed;
+    z-index: 998;
 }
 </style>

@@ -1,5 +1,19 @@
 <template>
     <div id="contacts">
+        <div class="con_navigate_row">
+            <div class="con_navigate_col">
+                <div class="con_navigate_line_wrap">
+                <div class="con_navigate_arrow con_navigate_arrow_up" @click="prev()">
+                    <img class="con_arrow con_up" src="../assets/img/down-arrow.svg">
+                </div>
+                <div class="con_navigate_line con_navigate_line_top"></div>
+                <div class="con_navigate_line con_navigate_line_mid"></div>
+                <div class="con_navigate_arrow con_navigate_arrow_down" @click="next()">
+                    <img class="con_arrow con_down" src="../assets/img/down-arrow.svg">
+                </div>
+                </div>
+            </div>
+        </div>
         <div class="left_back back"></div>
         <div class="right_back back">
             <img src="../assets/img/bg_main.jpg"/>
@@ -150,6 +164,7 @@
                 </div>
             </div>
         </full-page>
+        <app-soc-cop></app-soc-cop>
     </div>
 </template>
 
@@ -157,20 +172,21 @@
 import FullPage from 'vue-fullpage.js';
 import Map from './Map.vue';
 import Callback from './Callback.vue'
+import SocialCopir from './SocialCopir.vue'
 export default {
     name: "Contacts",
     components: {
       FullPage,
       'AppMap': Map,
       'AppCallback': Callback,
+      'AppSocCop': SocialCopir,
 },
     data () {
         return {
         callback: true,
         options: {
                 paddingTop: '0',
-                navigation: false,
-                anchors: ['page1', 'page2', 'page3']
+                navigation: true,
             }
         }
     },
@@ -181,12 +197,15 @@ export default {
         backTo() {
             this.callback = true;
         },
-        ref: function (page_id) {
+        next(){
             $.fn.fullpage.moveSectionDown();
         },
+        prev(){
+            $.fn.fullpage.moveSectionUp();
+        },
         moveTo: function(page_id) {
-            $.fn.fullpage.moveTo(2, 2);
-        }
+            $.fn.fullpage.moveTo(page_id, page_id);
+        },
     },
 
     destroyed: function() {
@@ -276,7 +295,7 @@ export default {
     padding-left: 5px;
 }
 .order_call{
-    background-color: #ce4c4c;
+    background-color: #cf3835;
     font-size: 0.8em;
     font-weight: bold;
     outline: none;
@@ -284,6 +303,12 @@ export default {
     padding: 10px 23px;
     padding-top: 12px;
     margin-top: 15px;
+}
+.order_call:hover{
+    background-color: #ce4c4c;
+}
+.order_call:active{
+    background-color: #cf3835;
 }
 .second_left_content_wrap{
     width: 74%;
@@ -389,7 +414,7 @@ export default {
     margin-left: 5%;
 }
 .sumbit{
-    background-color: #ce4c4c;
+    background-color: #cf3835;
     font-size: 0.8em;
     font-weight: bold;
     outline: none;
@@ -397,6 +422,12 @@ export default {
     padding: 10px 23px;
     padding-top: 12px;
     margin-top: 15px;
+}
+.sumbit:hover{
+    background-color: #ce4c4c;
+}
+.sumbit:active{
+    background-color: #cf3835;
 }
 .third_left_title{
     font-size: 1.5em;
@@ -429,6 +460,108 @@ export default {
 .second_name{
     margin-top: 0;
     font-size: 0.7em;
+}
+@media all and (max-width: 1251px) {
+    .con_navigate_row{
+        left:95% !important;
+    }
+    #fp-nav{
+      left:95% !important;
+    }
+}
+.con_navigate_row{
+  height: 180px;
+  position: fixed;
+  width: 20px;
+  top:50%;
+  left: 87%;
+  margin-top: -125px;
+  margin-left: -20px;
+  z-index: 9;
+}
+.con_navigate_col{
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+.con_navigate_line_wrap{
+  width: 1px;
+  height: 100%;
+  float: right;
+}
+.con_navigate_line{
+  width: 1px;
+  background-color: white;
+  height:60px;
+  margin-bottom:5px;
+  margin-top:5px;
+  float: left;
+}
+.con_navigate_arrow{
+  height: 10px;
+  width: 18px;
+  float: left;
+  margin-left: -9px;
+  cursor: pointer;
+}
+.con_navigate_arrow_up{
+  margin-bottom: 30px;
+}
+.con_navigate_arrow_down{
+  margin-top: 20px;
+}
+.con_arrow{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.con_up{
+  transform: rotate(180deg);
+}
+#fp-nav{
+  position: fixed;
+  width: 20px;
+  top:50%;
+  left: 87%;
+  height: 160px;
+  margin-left: -15px;
+  margin-top: -90px !important;
+  z-index: 9;
+}
+#fp-nav ul{
+  width: 10px;
+  height: 100%;
+  margin: auto;
+}
+#fp-nav li{
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 57px !important
+}
+#fp-nav li a{
+  float: right !important;
+  width: 10px !important;
+  height: 10px !important;
+} 
+#fp-nav li a.active span{
+  width: 8px !important;
+  height: 8px !important;
+  margin: 0 !important;
+  margin-left: 4px !important;
+  top:0 !important;
+  left:0 !important;
+  background-color: white !important;
+}
+#fp-nav li a span{
+  width: 8px !important;
+  height: 8px !important;
+  margin: 0 !important;
+  margin-left: 4px !important;
+  top:0 !important;
+  left:0 !important;
+  background-color: transparent !important;
+  border: 1px solid white !important;
 }
 </style>
 

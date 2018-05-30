@@ -7,7 +7,6 @@ import Basket from '../components/Basket'
 import Delivery from '../components/Delivery'
 import Contacts from '../components/Contacts'
 import Map from '../components/Map'
-import Maps from '../components/Maps'
 import Instruction from '../components/Instruction'
 import Detail from '../components/Detail'
 
@@ -50,10 +49,5 @@ export default new Router({
         name: 'Detail',
         component: Detail
       },
-      {
-        path: '/maps',
-        name: 'Maps',
-        component: Maps
-      }
     ]
   })

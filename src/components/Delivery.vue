@@ -72,12 +72,17 @@
                 </div>
             </div>
         </div>
+        <app-soc-cop></app-soc-cop>
     </div>
 </template>
 
 <script>
+import SocialCopir from './SocialCopir.vue'
 export default {
     name: 'Delivery',
+    components:{
+        'AppSocCop': SocialCopir,
+    }
 }
 </script>
 <style lang="scss" scoped>

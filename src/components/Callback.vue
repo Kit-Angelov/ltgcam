@@ -94,7 +94,7 @@ export default {
     margin-left: 5%;
 }
 .sumbit{
-    background-color: #ce4c4c;
+    background-color: #cf3835;
     font-size: 0.8em;
     font-weight: bold;
     outline: none;
@@ -103,6 +103,12 @@ export default {
     padding-top: 12px;
     margin-top: 15px;
     float: left;
+}
+.sumbit:hover{
+    background-color: #ce4c4c;
+}
+.sumbit:active{
+    background-color: #cf3835;
 }
 .toback{
     text-decoration: underline;

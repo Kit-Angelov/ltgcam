@@ -1,22 +1,36 @@
 <template>
     <div id="instruction">
-        <img class="back_catalog" src="../assets/img/bg_black.jpg"/>
-        <div class="title_wrap">
-            <div class="title_content">
-                <p class="title">УСТАНОВКА</p>
-                <p class="title_text">
+        <div class="ins_navigate_row">
+            <div class="ins_navigate_col">
+                <div class="ins_navigate_line_wrap">
+                <div class="ins_navigate_arrow ins_navigate_arrow_up" @click="prev()">
+                    <img class="ins_arrow ins_up" src="../assets/img/down-arrow.svg">
+                </div>
+                <div class="ins_navigate_line ins_navigate_line_top"></div>
+                <div class="ins_navigate_line ins_navigate_line_mid"></div>
+                <div class="ins_navigate_arrow ins_navigate_arrow_down" @click="next()">
+                    <img class="ins_arrow ins_down" src="../assets/img/down-arrow.svg">
+                </div>
+                </div>
+            </div>
+        </div>
+        <img class="ins_back_catalog" src="../assets/img/bg_black.jpg"/>
+        <div class="ins_title_wrap">
+            <div class="ins_title_content">
+                <p class="ins_title">УСТАНОВКА</p>
+                <p class="ins_title_text">
                     Метод установки зависит от автомобиля.<br/>
                     Некоторые автомобили имеют незначительные различия в методе, но в большинстве случаев он схож. 
                 </p>
             </div>
         </div>
         <full-page :options="options" id="fullpage">
-            <div class="section first_section" id="first">
-                <div class="wrap_section">
-                    <div class="grid_wrap">
-                        <div class="elem_grid">
+            <div class="section ins_first_section" id="first">
+                <div class="ins_wrap_section">
+                    <div class="ins_grid_wrap">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins01.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -26,9 +40,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="elem_grid">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins02.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -38,9 +52,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="elem_grid">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins03.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -50,9 +64,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="elem_grid">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins04.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -65,12 +79,12 @@
                     </div>
                 </div>
             </div>
-            <div class="section second_section" id="second">
-                <div class="wrap_section">
-                    <div class="grid_wrap">
-                        <div class="elem_grid">
+            <div class="section ins_second_section" id="second">
+                <div class="ins_wrap_section">
+                    <div class="ins_grid_wrap">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins01.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -80,9 +94,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="elem_grid">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins02.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -92,9 +106,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="elem_grid">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins03.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -104,9 +118,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="elem_grid">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins04.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -119,12 +133,12 @@
                     </div>
                 </div>
             </div>
-            <div class="section third_section" id="third">
-                <div class="wrap_section">
-                    <div class="grid_wrap">
-                        <div class="elem_grid">
+            <div class="section ins_third_section" id="third">
+                <div class="ins_wrap_section">
+                    <div class="ins_grid_wrap">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins01.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -134,9 +148,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="elem_grid">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins02.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -146,9 +160,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="elem_grid">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins03.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -158,9 +172,9 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="elem_grid">
+                        <div class="ins_elem_grid">
                             <img src="../assets/img/ins04.png">
-                            <div class="elem_text">
+                            <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
@@ -174,23 +188,146 @@
                 </div>
             </div>
         </full-page>
+        <app-soc-cop></app-soc-cop>
     </div>
 </template>
 <script>
 import FullPage from 'vue-fullpage.js';
+import SocialCopir from './SocialCopir.vue'
 export default {
     name: 'Instruction',
     components: {
       FullPage,
+      'AppSocCop': SocialCopir,
+    },
+    data () {
+        return{
+            options: {
+                paddingTop: '0',
+                navigation: true,
+            }
+        }
+    },
+    methods: {
+        next(){
+            $.fn.fullpage.moveSectionDown();
+        },
+        prev(){
+            $.fn.fullpage.moveSectionUp();
+        },
+        moveTo: function(page_id) {
+            $.fn.fullpage.moveTo(page_id, page_id);
+        },
     },
     destroyed: function() {
         $.fn.fullpage.destroy('all');
     }
 }
 </script>
-<style lang="scss" scoped>
-
-.back_catalog{
+<style lang="scss">
+@media all and (max-width: 1251px) {
+    .ins_navigate_row{
+        left:95% !important;
+    }
+    #fp-nav{
+      left:95% !important;
+    }
+}
+.ins_navigate_row{
+  height: 180px;
+  position: fixed;
+  width: 20px;
+  top:50%;
+  left: 87%;
+  margin-top: -125px;
+  margin-left: -20px;
+  z-index: 9;
+}
+.ins_navigate_col{
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+.ins_navigate_line_wrap{
+  width: 1px;
+  height: 100%;
+  float: right;
+}
+.ins_navigate_line{
+  width: 1px;
+  background-color: white;
+  height:60px;
+  margin-bottom:5px;
+  margin-top:5px;
+  float: left;
+}
+.ins_navigate_arrow{
+  height: 10px;
+  width: 18px;
+  float: left;
+  margin-left: -9px;
+  cursor: pointer;
+}
+.ins_navigate_arrow_up{
+  margin-bottom: 30px;
+}
+.ins_navigate_arrow_down{
+  margin-top: 20px;
+}
+.ins_arrow{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ins_up{
+  transform: rotate(180deg);
+}
+#fp-nav{
+  position: fixed;
+  width: 20px;
+  top:50%;
+  left: 87%;
+  height: 160px;
+  margin-left: -15px;
+  margin-top: -90px !important;
+  z-index: 9;
+}
+#fp-nav ul{
+  width: 10px;
+  height: 100%;
+  margin: auto;
+}
+#fp-nav li{
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 57px !important
+}
+#fp-nav li a{
+  float: right !important;
+  width: 10px !important;
+  height: 10px !important;
+} 
+#fp-nav li a.active span{
+  width: 8px !important;
+  height: 8px !important;
+  margin: 0 !important;
+  margin-left: 4px !important;
+  top:0 !important;
+  left:0 !important;
+  background-color: white !important;
+}
+#fp-nav li a span{
+  width: 8px !important;
+  height: 8px !important;
+  margin: 0 !important;
+  margin-left: 4px !important;
+  top:0 !important;
+  left:0 !important;
+  background-color: transparent !important;
+  border: 1px solid white !important;
+}
+.ins_back_catalog{
     position: absolute;
     top: 0;
     left: 0;
@@ -198,37 +335,37 @@ export default {
     height: 100vh;
     z-index: -2;
 }
-.title_wrap{
+.ins_title_wrap{
     position: absolute;
     width: 100%;
     height: 70px;
     top:15vh;
     z-index: 99;
 }
-.title_content{
+.ins_title_content{
     width: 74%;
     min-width: 1000px;
     height: 100%;
     margin: auto;
     text-align: left;
 }
-.title{
+.ins_title{
     font-weight: bold;
     font-size: 1.5em;
     margin-bottom: 0;
 }
-.title_text{
+.ins_title_text{
     margin-top: 5px;
     font-size: 0.8em;
 }
-.wrap_section{
+.ins_wrap_section{
     width:74%;
     min-width: 1000px;
     margin: auto;
     height: 50%;
     margin-top: 12vh;
 }
-.grid_wrap{
+.ins_grid_wrap{
     width: 100%;
     height: 100%;
     display: grid;
@@ -236,32 +373,32 @@ export default {
     grid-template-columns: repeat(2, 47%);
     grid-template-rows: repeat(2);
 }
-.elem_grid{
+.ins_elem_grid{
     background-color: transparent;
     width: 100%;
     height: 100%;
 }
-.elem_grid img{
+.ins_elem_grid img{
     width: 55%;
     height: 100%;
     object-fit: cover;
     float: left;
 }
-.elem_text{
+.ins_elem_text{
     float: left;
     width: 45%;
     height: 100%;
     text-align: center;
     background-color: rgba($color: black, $alpha: 0.6);
 }
-.elem_text table{
+.ins_elem_text table{
     width: 75%;
     margin: auto;
     height:100%;
     vertical-align: middle;
     text-align: left;
 }
-.elem_text p{
+.ins_elem_text p{
     font-weight: bold;
     font-size: 1em;
 }
