@@ -2,38 +2,40 @@
   <div id="wrap_menu">
     <div class="menu_content">
       <div class="left_part">
+        <router-link to="/">
         <div class="logo_wrap">
           <img class="logo" src="../assets/img/ltg_logo.svg">
         </div>
+        </router-link>
         <div class="basket_wrap">
           <router-link to="/basket">
             <img class="basket_img" src="../assets/img/shopping.svg">
-            <div class="basket_point"></div>
+            <div class="basket_point" v-if="basketState"></div>
           </router-link>
         </div>
       </div>
       <div class="middle_part">
-        <div class="menu_elem">
+        <div class="menu_elem menu_elem_first">
           <router-link to="/">
-            ГЛАВНАЯ
+              ГЛАВНАЯ
           </router-link>
           </div>
-        <div class="menu_elem">
+        <div class="menu_elem menu_elem_second">
           <router-link to="/catalog">
             РЕГИСТРАТОРЫ
           </router-link>
           </div>
-        <div class="menu_elem">
+        <div class="menu_elem menu_elem_third">
           <router-link to="/instruction">
             УСТАНОВКА
           </router-link>
         </div>
-        <div class="menu_elem">
+        <div class="menu_elem menu_elem_forth">
           <router-link to="/delivery">
             ДОСТАВКА
           </router-link>
           </div>
-        <div class="menu_elem">
+        <div class="menu_elem menu_elem_five">
           <router-link to="/contacts">
             КОНТАКТЫ
           </router-link>
@@ -62,13 +64,20 @@
 </template>
 
 <script>
-
 export default {
   name: 'Menu',
 
   data () {
     return {
     }
+  },
+  computed: {
+    basketState(){
+      return this.$store.state.basketState
+    }
+  },
+  mounted() {
+    this.$store.dispatch('checkBasket');
   },
 }
 </script>
@@ -91,11 +100,38 @@ a {
   width: 25%;
 }
 .menu_elem a{
-  font-size: 0.7em;
-  font-weight: bold;
+  font-family: TextProMedium;
+  font-size: 10pt;
 }
-.menu_elem a:hover{
-  border-bottom: 2px solid#ce4c4c;
+.menu_elem::after{
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #ce4c4c;
+  margin:auto;
+  // border-bottom: 3px solid#ce4c4c;
+  transition: width .3s;
+}
+.menu_elem_first:hover::after{
+  width: 60px;
+  
+}
+.menu_elem_second:hover::after{
+  width: 98px;
+  
+}
+.menu_elem_third:hover::after{
+  width: 75px;
+  
+}
+.menu_elem_forth:hover::after{
+  width: 68px;
+  
+}
+.menu_elem_five:hover::after{
+  width: 68px;
+  
 }
 
 #wrap_menu {
@@ -138,6 +174,7 @@ a {
   width: 36%;
   min-width: 141px;
   height: 100%;
+  cursor: pointer;
 }
 .logo {
   width: 100%;
@@ -152,13 +189,13 @@ a {
   position: relative;
 }
 .basket_point{
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   position: absolute;
   background-color: #ce4c4c;
   border-radius: 50%;
-  top:9px;
-  right: -6px;
+  top:13px;
+  right: 4px;
 }
 .basket_img{
   width: 100%;
@@ -166,10 +203,7 @@ a {
   padding-top: 15px;
 }
 .menu_elem p{
-  font-size: 0.7em;
-  font-weight: bold;
-  line-height: 50px;
-  margin: 0;
+
 }
 .right_part table{
   float: right;
@@ -187,13 +221,19 @@ a {
 }
 .info p{
   float: left;
-  font-size: 0.9em;
+  margin-top:12px;
 }
 .worktime p{
   color: #cba35d;
-  font-weight: bold;
+  font-family: TextProBold;
+  font-size: 12pt;
+  margin-top: 12px;
 }
 .phone{
   margin-right: 15px;
+}
+.phone p{
+  font-family: TextProLight;
+  font-size: 12pt;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
-    <div id='map'>
-    </div>
+    <div id='map'></div>
 </template>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2l0YW5nZWxvdiIsImEiOiJjamd1aHZncTMxMjF6MndtcWdjZGZhY2g1In0.s4vQ4pbKkTCpKt6psOPxMw';
@@ -8,7 +7,6 @@ export default {
     name: 'Map',
     data () {
         return{
-            
         }
     },
     mounted () {
@@ -16,19 +14,23 @@ export default {
             style: 'mapbox://styles/mapbox/dark-v9',
             center: [39.1896162, 51.7258339],
             zoom: 14,
-            hash: true,
+            hash: false,
             container: 'map'
         });
+        map.scrollZoom.disable();
+        var nav = new mapboxgl.NavigationControl();
+        map.addControl(nav, 'top-left');
         var el = document.createElement('div');
-        el.className = 'marker';
-        
-        var marker = new mapboxgl.Marker(el)
-        .setLngLat([39.1896162, 51.7258339])
-        .addTo(map);
-    }
+            el.className = 'marker';
+
+            var marker = new mapboxgl.Marker(el)
+            .setLngLat([39.1896162, 51.7258339])
+            .addTo(map);
+    },
 }
 </script>
-<style>
+<style <style lang="scss">
+
 #map {
   width: 50%;
   height: 100%;
@@ -52,7 +54,18 @@ export default {
 .mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right{
     display: none !important;
 }
+.mapboxgl-ctrl-top-left{
+    top: 50%;
+    margin-top: -50px;
+    left: 30px;
+}
+.mapboxgl-ctrl{
+    border-radius: 0;
+    background-color: rgba($color: #ffffff, $alpha: 1);
+}
+.mapboxgl-ctrl-zoop-in{
 
+}
 </style>
 
 

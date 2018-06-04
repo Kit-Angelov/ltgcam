@@ -34,9 +34,9 @@
                     <p class="descript">
                       Сконструирован специально для вашего автомобиля
                     </p>
-                    <div class="text_block_col text_block_col_left">
+                    <div class="text_block_col text_block_col_left text_block_col_left_first">
                       <div class="first_col text_col">
-                        <div class="icon_large">
+                        <div class="icon_large first_icon_large">
                           <img src="../assets/img/1080p.svg"/>
                         </div>
                         <div class="text_col_content_wrap text_col_content_wrap_row">
@@ -47,7 +47,7 @@
                         </div>
                       </div>
                       <div class="first_col text_col">
-                        <div class="icon_large">
+                        <div class="icon_large second_icon_large">
                           <img src="../assets/img/wave.svg"/>
                         </div>
                         <div class="text_col_content_wrap text_col_content_wrap_row">
@@ -61,7 +61,7 @@
                     </div>
                     <div class="text_block_col text_block_col_right">
                       <div class="second_col text_col">
-                        <div class="icon_large">
+                        <div class="icon_large third_icon_large">
                           <img src="../assets/img/view.svg"/>
                         </div>
                         <div class="text_col_content_wrap text_col_content_wrap_row">
@@ -72,7 +72,7 @@
                         </div>
                       </div>
                       <div class="second_col text_col">
-                        <div class="icon_large">
+                        <div class="icon_large forth_icon_large">
                           <img src="../assets/img/search.svg"/>
                         </div>
                         <div class="text_col_content_wrap text_col_content_wrap_row">
@@ -113,7 +113,7 @@
                   <div class="content_section">
                     <p class="title">СДЕЛАЙ ЗАКАЗ СЕЙЧАС</p>
                     <p class="descript">
-                      Выберите подходящий видеорегистратор, мы перезвоним Вам<br/>
+                      Выберите подходящий видеорегистратор, мы перезвоним вам
                       и доставим его по адресу
                     </p>
                     <div class="text_block_col text_block_col_left">
@@ -194,8 +194,8 @@
                   <div class="content_section">
                     <p class="title">МОБИЛЬНОЕ<br/>ПРИЛОЖЕНИЕ</p>
                     <p class="descript">
-                      С видеорегистратора <span class="plain_span">LTG-CAM</span> вам больше не нужно<br/>
-                      разглядывать меню на маленьком мониторе - в нашем<br/>
+                      С видеорегистратора <span class="plain_span">LTG-CAM</span> вам больше не нужно
+                      разглядывать меню на маленьком мониторе - в нашем
                       видеорегистраторе установлен WI-FI.
                     </p>
                     <p class="header_text">Специальное приложение LTG-CAM позволит вам:</p>
@@ -264,14 +264,16 @@
             <tr>
               <td>
                 <p class="title">ВИДЕОЗАПИСИ</p>
-                <s>Обзор видеорегистратора</s>
-                <a>Примерм видео</a>
+                <p v-if="video_state" class="strike">Обзор видеорегистратора</p>
+                <p v-if="video_state" class="non-strike" @click="changeVideo(2)">Пример видео</p>
+                <p v-if="!video_state" class="non-strike" @click="changeVideo(1)">Обзор видеорегистратора</p>
+                <p v-if="!video_state" class="strike">Пример видео</p>
               </td>
             </tr>
           </table>
           <img class="notebook" src="../assets/img/lap.png"/>
           <div class="video_wrap">
-            <iframe src="https://www.youtube.com/embed/M_y3UU7rQmo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe :src="video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -295,6 +297,10 @@ export default {
 
   data () {
     return {
+      video1: "https://www.youtube.com/embed/M_y3UU7rQmo",
+      video2: "https://www.youtube.com/embed/T7GDYujgluI",
+      video: "",
+      video_state: true,
       cur_page: 1,
       options: {
             paddingTop: '0',
@@ -302,7 +308,9 @@ export default {
           }
     }
   },
-
+  created() {
+    this.video = this.video1
+  },
   methods: {
     next(){
       $.fn.fullpage.moveSectionDown();
@@ -313,15 +321,25 @@ export default {
     moveTo: function(page_id) {
       $.fn.fullpage.moveTo(page_id, page_id);
     },
+    changeVideo(arg){
+      if(arg == 1){
+        this.video_state = true;
+        this.video = this.video1;
+      } else {
+        this.video_state = false;
+        this.video = this.video2
+      }
+    }
   },
-
-  destroyed: function() {
-    $.fn.fullpage.destroy('all');
-  }
+  beforeCreate(){
+        $.fn.fullpage.destroy('all');
+    },
+  // destroyed: function() {
+  //   $.fn.fullpage.destroy('all');
+  // }
 
 }
 </script>
-
 <style lang="scss">
 .section{
   width: 100vw;
@@ -391,14 +409,14 @@ export default {
   width: 50%;
   height: 100%;
   float: left;
-  background-color: rgba($color: #070506, $alpha: 0.9);
+  background-color: rgba($color: #070506, $alpha: 0.7);
   z-index: -1;
 }
 .right_back{
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: -2
+  z-index: -2;
 }
 .back img{
   width: 100%;
@@ -452,13 +470,14 @@ export default {
   margin-top: 30px;
 }
 .button_download button{
+  font-family: TextProMedium;
   background-color: #cf3835;
-  font-size: 0.8em;
-  font-weight: bold;
+  font-size: 12pt;
   outline: none;
   border: none;
   padding: 10px 23px;
   padding-top: 12px;
+  cursor: pointer;
 }
 .button_download button:hover{
     background-color: #ce4c4c;
@@ -467,14 +486,24 @@ export default {
     background-color: #cf3835;
 }
 .left_part_section .title{
-  font-weight: 700;
-  font-size: 1.5em;
+  font-size: 26pt;
+  font-family: TextProBold;
 }
 .title{
   margin-bottom: 18px;
 }
-.descript, .header_text, .text_col_content{
-  font-size: 0.8em;
+.descript{
+  font-family: TextProLight;
+  font-size: 14pt;
+  padding-right: 40px;
+}
+.header_text{
+  font-family: TextProLight;
+  font-size: 12pt;
+}
+.text_col_content{
+  font-family: TextProLight;
+  font-size: 12pt;
 }
 .plain_span{
   font-weight: 700;
@@ -531,27 +560,25 @@ export default {
 
 .notebook{
   position: absolute;
-  width: 54%;
-  min-width: 600px;
+  width: 50%;
   height:auto;
-  top: 23%;
+  top: 25%;
   left: 50%;
-  margin-left: -27%;
+  margin-left: -25%;
   z-index: 998;
 }
 .video_wrap{
   position: absolute;
-  width: 54%;
-  min-width: 600px;
+  width: 50%;
   height:50%;
-  top: 23%;
+  top: 25%;
   left: 50%;
-  margin-left: -27%;
+  margin-left: -25%;
   z-index: 999;
 }
 .video_wrap iframe{
-  width: 65%;
-  height: 88%;
+  width: 65.3%;
+  height: 20.5vw;
   margin: auto;
   margin-top:3%;
   object-fit: cover;
@@ -563,23 +590,24 @@ export default {
   text-align: left;
 }
 .forth_section .title{
-  font-weight: 700;
-  font-size: 1.5em;
+  font-size: 24pt;
+  font-family: TextProBold;
 }
-.forth_section s {
+.forth_section .strike {
   width: 100%;
   float: left;
-  color: white;
-  margin-top:20px;
+  color: #cccccc;
+  margin-top:0px;
   vertical-align: middle;
 }
-.forth_section a {
+.forth_section .non-strike {
   width: 100%;
   float: left;
   color: #cba35d;
   vertical-align: middle;
-  margin-top:20px;
+  margin-top:0px;
   text-decoration: underline;
+  cursor: pointer;
 }
 #fp-nav{
   position: fixed;
@@ -625,5 +653,22 @@ export default {
   left:0 !important;
   background-color: transparent !important;
   border: 1px solid white !important;
+}
+.first_icon_large{
+  margin-top: 10px;
+}
+.second_icon_large{
+  margin-top: 10px;
+}
+.third_icon_large{
+  margin-top: 3px;
+}
+.forth_icon_large img{
+  width: 70%;
+  margin-left: 6px;
+  margin-top: 7px;
+}
+.text_block_col_left_first{
+  width: 37%;
 }
 </style>

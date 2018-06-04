@@ -23,10 +23,7 @@
                 </div>
                 <div class="descript">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                         nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
+                        Видеорегистратор LTG-CAM сконструирован специально для вашего автомобиля и после установки выглядит как штатное устройство.
                     </p>
                 </div>
                 <div class="attr">
@@ -149,6 +146,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
 }
 .slide-enter-active {
   animation: slideDown .5s;
@@ -178,16 +176,16 @@ export default {
 }
 .name{
     margin-top:0;
-    font-size: 1.5em;
-    font-weight: bold;
+    font-size: 20pt;
+    font-family: TextProMedium;
     float: left;
 }
 .price {
     margin-top:0;
-    font-size: 1.5em;
+    font-size: 16pt;
+    font-family: TextProMedium;
     float: right;
     color: #cba35d;
-    font-weight: bold;
 }
 .descript{
     width: 100%;
@@ -195,7 +193,8 @@ export default {
     text-align: left;
 }
 .descript p{
-    font-size: 0.7em;
+    font-size: 10pt;
+    font-family: TextProLight;
 }
 .attr{
     width: 100%;
@@ -204,8 +203,16 @@ export default {
     text-align: left;
 }
 .attr p{
-    line-height: 0.7;
-    font-size: 0.8em;
+    line-height: 0.5;
+    font-size: 12pt;
+    font-family: TextProLight;
+}
+@media all and (max-width: 1367px) {
+.attr p{
+    line-height: 0.5;
+    font-size: 10pt !important;
+    font-family: TextProLight;
+}
 }
 .links{
     width: 60%;
@@ -219,6 +226,7 @@ export default {
     float: left;
     height: auto;
     margin-top: 5px;
+    cursor: pointer;
 }
 .link img{
     width: 18px;
@@ -230,7 +238,8 @@ export default {
     margin-top: 2px;
     margin-left: 7px;
     margin-bottom: 4px;
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
     text-decoration: underline;
     float: left;
 }
@@ -244,13 +253,14 @@ export default {
 }
 .buy_wrap button{
     background-color: #cf3835;
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
     outline: none;
     border: none;
     padding: 10px 23px;
     padding-top: 12px;
     margin-top: 15px;
+    cursor: pointer;
 }
 .buy_wrap button:hover{
     background-color: #ce4c4c;
@@ -260,7 +270,8 @@ export default {
 }
 .buy_wrap p{
     text-decoration: underline;
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
     margin-bottom: 4px;
     margin-top: 15px;
     cursor: pointer;

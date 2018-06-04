@@ -19,20 +19,20 @@
             <img src="../assets/img/bg_main.jpg"/>
         </div>
         <full-page :options="options" id="fullpage">
-            <div class="section first_section" id="first">
-                <div class="wrap_section">
-                    <div class="left_part part">
-                        <div class="first_left_content_wrap">
+            <div class="section con-first_section" id="first">
+                <div class="con-wrap_section">
+                    <div class="con-left_part con-part">
+                        <div class="con-first_left_content_wrap">
                             <table>
                                 <tr>
                                     <td>
                                         <p class="first_left_title">СВЯЖИТЕСЬ С НАМИ,</p>
                                         <p class="first_left_subtitle">если у вас возникли какие-либо вопросы</p>
                                         <div v-if="callback">
-                                        <p class="first_left_text">Наш телефон(+ whatsapp, viber):</p>
+                                        <p class="first_left_text">Наш телефон (+ whatsapp, viber):</p>
                                         <p class="first_left_phone">+7 920 222 66 44</p>
                                         <p class="first_left_text">Наша электронная почта:</p>
-                                        <p class="first_left_email">info@ltgcam.ru</p>
+                                        <p class="first_left_email" @click="openEmail()">info@ltgcam.ru</p>
                                         <p class="first_left_text">Наш адрес:</p>
                                         <p class="first_left_adres">г. Воронеж, ул. Ломоносова, дом 115, офис 16</p>
                                         <button class="order_call" @click="ordercall()">ЗАКАЗАТЬ ЗВОНОК</button>
@@ -45,15 +45,15 @@
                             </table>
                         </div>
                     </div>
-                    <div class="right_part part">
+                    <div class="con-right_part con-part map_part">
                         <app-map></app-map>
                     </div>
                 </div>
             </div>
-            <div class="section second_section">
-                <div class="wrap_section">
-                    <div class="left_part part">
-                        <div class="second_left_content_wrap">
+            <div class="section con-second_section">
+                <div class="con-wrap_section">
+                    <div class="con-left_part con-part">
+                        <div class="con-second_left_content_wrap">
                         <table>
                                 <tr>
                                     <td>
@@ -76,34 +76,34 @@
                         </table>
                         </div>
                     </div>
-                    <div class="right_part part">
-                        <div class="second_right_content_wrap">
+                    <div class="con-right_part con-part">
+                        <div class="con-second_right_content_wrap">
                         <table>
                                 <tr>
                                     <td>
                                         <div class="persons">
                                             <div class="person">
-                                                <img src="../assets/img/box.png">
+                                                <img src="../assets/img/pidr.png">
                                                 <p class="first_name">Лорем Инпус</p>
                                                 <p class="second_name">Долор Сит Амет</p>
                                             </div>
                                             <div class="person">
-                                                <img src="../assets/img/box.png">
+                                                <img src="../assets/img/pidr.png">
                                                 <p class="first_name">Лорем Инпус</p>
                                                 <p class="second_name">Долор Сит Амет</p>
                                             </div>
                                             <div class="person">
-                                                <img src="../assets/img/box.png">
+                                                <img src="../assets/img/pidr.png">
                                                 <p class="first_name">Лорем Инпус</p>
                                                 <p class="second_name">Долор Сит Амет</p>
                                             </div>
                                             <div class="person">
-                                                <img src="../assets/img/box.png">
+                                                <img src="../assets/img/pidr.png">
                                                 <p class="first_name">Лорем Инпус</p>
                                                 <p class="second_name">Долор Сит Амет</p>
                                             </div>
                                             <div class="person">
-                                                <img src="../assets/img/box.png">
+                                                <img src="../assets/img/pidr.png">
                                                 <p class="first_name">Лорем Инпус</p>
                                                 <p class="second_name">Долор Сит Амет</p>
                                             </div>
@@ -115,10 +115,10 @@
                     </div>
                 </div>
             </div>
-            <div class="section third_section">
-                <div class="wrap_section">
-                    <div class="left_part part">
-                        <div class="second_left_content_wrap">
+            <div class="section con-third_section">
+                <div class="con-wrap_section">
+                    <div class="con-left_part con-part">
+                        <div class="con-second_left_content_wrap">
                         <table>
                                 <tr>
                                     <td>
@@ -141,8 +141,8 @@
                         </table>
                         </div>
                     </div>
-                    <div class="right_part part">
-                        <div class="second_right_content_wrap">
+                    <div class="con-right_part con-part">
+                        <div class="con-second_right_content_wrap">
                         <table>
                                 <tr>
                                     <td>
@@ -206,14 +206,19 @@ export default {
         moveTo: function(page_id) {
             $.fn.fullpage.moveTo(page_id, page_id);
         },
+        openEmail() {
+            window.location.href = "mailto:info@ltgcam.ru?subject=&body="
+        }
     },
-
-    destroyed: function() {
+    beforeCreate(){
         $.fn.fullpage.destroy('all');
-    }
+    },
+    // destroyed: function() {
+    //     $.fn.fullpage.destroy('all');
+    // }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 #contacts{
     width:100vw;
     height:100vh;
@@ -222,7 +227,7 @@ export default {
   position: absolute;
   width: 50%;
   height:100%;
-  background-color: rgba($color: #070506, $alpha: 0.9);
+  background-color: rgba($color: #070506, $alpha: 0.7);
   z-index: -1;
   overflow: hidden;
 }
@@ -237,72 +242,77 @@ export default {
   width: 100%;
   height: 100%;
 }
-.wrap_section{
+.con-wrap_section{
     width:100%;
     height: 100%;
 }
-.part{
+.con-part{
     width: 50%;
     height: 100%;
     float:left;
 }
-.first_left_content_wrap{
+.con-first_left_content_wrap{
     width: 74%;
     min-width: 500px;
     float: right;
     height: 100%;
     text-align: left;
 }
-.first_left_content_wrap table{
+.con-first_left_content_wrap table{
     width: 100%;
     height: 100%;
 }
 .first_left_title{
-    font-size: 1.5em;
-    font-weight: bold;
+    font-size: 26pt;
+    font-family: TextProBold;
     margin-bottom: 0;
 }
 .first_left_subtitle{
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
     margin-top: 3px;
     margin-bottom: 25px;
 }
 .first_left_text{
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
     margin-bottom: 5px;
 }
 .first_left_phone{
     margin-top: 0;
     margin-bottom: 10px;
-    font-size: 1em;
-    font-weight: bold;
+    font-size: 16pt;
+    font-family: TextProMedium;
     padding-left: 5px;
 }
 .first_left_email{
     margin-top: 0;
     margin-bottom: 10px;
-    font-size: 1em;
-    font-weight: bold;
+    font-size: 16pt;
+    display: inline;
+    font-family: TextProMedium;
     color: #cba35d;
     padding-left: 5px;
     text-decoration: underline;
+    cursor: pointer;
 }
 .first_left_adres{
     margin-bottom: 10px;
     margin-top: 0;
-    font-size: 1em;
-    font-weight: bold;
+    font-size: 16pt;
+    font-family: TextProMedium;
     padding-left: 5px;
 }
 .order_call{
     background-color: #cf3835;
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
     outline: none;
     border: none;
     padding: 10px 23px;
     padding-top: 12px;
     margin-top: 15px;
+    cursor: pointer;
 }
 .order_call:hover{
     background-color: #ce4c4c;
@@ -310,26 +320,27 @@ export default {
 .order_call:active{
     background-color: #cf3835;
 }
-.second_left_content_wrap{
+.con-second_left_content_wrap{
     width: 74%;
     min-width: 500px;
     float: right;
     height: 100%;
     text-align: left;
 }
-.second_left_content_wrap table{
+.con-second_left_content_wrap table{
     width: 100%;
     height: 100%;
 }
 .second_left_title{
-    font-size: 1.3em;
-    font-weight: bold;
+    font-size: 26pt;
+    font-family: TextProBold;
 }
 .second_left_text{
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
     padding-right: 40px;
 }
-.second_right_content_wrap{
+.con-second_right_content_wrap{
     width: 74%;
     min-width: 500px;
     float: left;
@@ -337,43 +348,48 @@ export default {
     text-align: left;
     padding-left: 50px;
 }
-.second_right_content_wrap table{
+.con-second_right_content_wrap table{
     width: 100%;
     height: 100%;
 }
 .form_parnter{
-    width: 300px;
-    height:260px;
+    width: 70%;
+    height:280px;
     padding: 30px;
     background-color: rgba($color: #070506, $alpha: 0.2)
 }
 ::-webkit-input-placeholder { 
-    font-size: 0.9em;
+    font-size: 12pt;
+    font-family: TextProLight;
   color: white;
 }
 ::-moz-placeholder { 
   color: white;
-  font-size: 0.9em;
+  font-size: 12pt;
+    font-family: TextProLight;
 }
 :-ms-input-placeholder {
   color: white;
-  font-size: 0.9em;
+  font-size: 12pt;
+    font-family: TextProLight;
 }
 :-moz-placeholder { 
   color: white;
-  font-size: 0.9em;
+  font-size: 12pt;
+    font-family: TextProLight;
 }
 .input_full{
     width: 100%;
     height: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     background-color: transparent;
     border: none;
     border-bottom: 1px solid white;
     line-height: 0.4;
     color: white;
     outline: none;
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
 }
 .form_parnter textarea{
     height: 70px;
@@ -381,10 +397,12 @@ export default {
     color: white;
     outline: none;
     background-color: transparent;
-    width: 290px;
+    width: 98%;
     padding: 5px;
-    font-size: 0.9em;
+    font-size: 12pt;
+    font-family: TextProLight;
     margin-top: 20px;
+    resize: none;
 }
 .input_little{
     width: 45%;
@@ -397,7 +415,8 @@ export default {
     line-height: 0.4;
     color: white;
     outline: none;
-    font-size: 0.8em;
+    font-size: 14pt;
+    font-family: TextProLight;
 }
 .input_great{
     width: 50%;
@@ -410,18 +429,20 @@ export default {
     line-height: 0.4;
     color: white;
     outline: none;
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
     margin-left: 5%;
 }
 .sumbit{
     background-color: #cf3835;
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
     outline: none;
     border: none;
     padding: 10px 23px;
     padding-top: 12px;
     margin-top: 15px;
+    cursor: pointer;
 }
 .sumbit:hover{
     background-color: #ce4c4c;
@@ -430,36 +451,37 @@ export default {
     background-color: #cf3835;
 }
 .third_left_title{
-    font-size: 1.5em;
-    font-weight: bold;
+    font-size: 26pt;
+    font-family: TextProBold;
 }
 .persons{
-    width: 420px;
-    height: 350px;
+    width: 80%;
+    height: 50%;
     display: grid;
-    grid-gap: 40px;
-    grid-template-columns: repeat(auto-fit, 100px);
+    grid-gap: 5%;
+    grid-template-columns: repeat(auto-fit, 28%);
     grid-template-rows: repeat(auto-fit);
 }
 .person{
-    width: 100px;
-    height: 150px;
+    width: 100%;
+    height: 100%;
     text-align: center;
 }
 .person img{
-    width: 100px;
-    height: 120px;
+    width: 100%;
+    height: auto;
     object-fit: cover;
     float: left;
 }
 .first_name{
-    font-size: 0.9em;
-    font-weight: bold;
+    font-size: 14pt;
+    font-family: TextProMedium;
     margin-bottom: 0;
 }
 .second_name{
     margin-top: 0;
-    font-size: 0.7em;
+    font-size: 11pt;
+    font-family: TextProLight;
 }
 @media all and (max-width: 1251px) {
     .con_navigate_row{

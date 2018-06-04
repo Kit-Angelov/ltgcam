@@ -23,37 +23,42 @@ export default {
 </script>
 <style scoped>
 .form_client{
-    width: 350px;
+    width: 70%;
     height:240px;
     background-color: transparent;
 }
 ::-webkit-input-placeholder { 
-    font-size: 0.9em;
+    font-size: 12pt;
+    font-family: TextProLight;
   color: white;
 }
 ::-moz-placeholder { 
   color: white;
-  font-size: 0.9em;
+  font-size: 12pt;
+    font-family: TextProLight;
 }
 :-ms-input-placeholder {
   color: white;
-  font-size: 0.9em;
+  font-size: 12pt;
+    font-family: TextProLight;
 }
 :-moz-placeholder { 
   color: white;
-  font-size: 0.9em;
+  font-size: 12pt;
+    font-family: TextProLight;
 }
 .input_full{
-    width: 100%;
+    width: 102%;
     height: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     background-color: transparent;
     border: none;
     border-bottom: 1px solid white;
     line-height: 0.4;
     color: white;
     outline: none;
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
 }
 .form_client textarea{
     height: 70px;
@@ -61,9 +66,10 @@ export default {
     color: white;
     outline: none;
     background-color: transparent;
-    width: 340px;
+    width: 100%;
     padding: 5px;
-    font-size: 0.9em;
+    font-size: 12pt;
+    font-family: TextProLight;
     margin-top: 20px;
 }
 .input_little{
@@ -77,7 +83,8 @@ export default {
     line-height: 0.4;
     color: white;
     outline: none;
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
 }
 .input_great{
     width: 50%;
@@ -90,13 +97,14 @@ export default {
     line-height: 0.4;
     color: white;
     outline: none;
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
     margin-left: 5%;
 }
 .sumbit{
     background-color: #cf3835;
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
     outline: none;
     border: none;
     padding: 10px 23px;
@@ -112,7 +120,8 @@ export default {
 }
 .toback{
     text-decoration: underline;
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
     float: left;
     margin-left: 20px;
     padding-top: 14px;

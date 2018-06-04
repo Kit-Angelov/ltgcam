@@ -4,13 +4,14 @@
         <div class="top_pane">
             <div class="wrap_top_pane">
                 <div class="navigate_text">
-                    <p class="title_text" @click="toCatalog()">Видеорегистраторы &rarr;</p>
-                    <p class="selectet_text" @click="toCatalog()">BMW</p>
+                    <p class="title_text" @click="toCatalog()">Видеорегистраторы</p>
+                    <p class="selectet_text" @click="toCatalog()">&rarr; BMW</p>
                     <p class="detail_name" v-if="detail">&rarr; Series 3</p>
                 </div>
                 <div class="navigate_select" v-if="!detail">
                     <select>
                         <option>BMW</option>
+                        <option>VOLVO</option>
                     </select>
                     <p class="navigate_select_title">Марка автомобиля:</p>
                 </div>
@@ -21,15 +22,24 @@
             <div class="wrap_content">
                 <div class="content">
                 <div class="content_item" v-for="item in content" :key="item.name">
-                    <div class="content_item_wrap" @click="detailview()">
-                        <img src="../assets/img/camera.jpg"/>
-                        <div class="text">
-                            <p class="name">{{ item.name }}</p>
-                            <p class="descript">{{ item.descrip }}</p>
+                    <div class="content_item_wrap">
+                        <div class="non-hover-item" @click="detailview()">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <p>{{item.model | capitalize}}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <img src="../assets/img/camera.jpg" @click="detailview()"/>
+                        <div class="text" @click="detailview()">
+                            <p class="name">{{ item.name }} {{item.model}}</p>
+                            <p class="cat-descript">{{ item.descrip }}</p>
                             <p class="price">{{ item.price }}</p>
                         </div>
                         <div class="basket_but_wrap">
-                            <div class="basket_but">
+                            <div class="basket_but" @click="addToBasket()">
                                 <img class="basket_but_img" src="../assets/img/add.svg"/>
                             </div>
                         </div>
@@ -46,14 +56,16 @@
 
 <script>
 import Detail from './Detail.vue';
-import Order from './Order.vue'
-import SocialCopir from './SocialCopir.vue'
+import Order from './Order.vue';
+import SocialCopir from './SocialCopir.vue';
+import vSelect from 'vue-select'
 export default {
   name: 'Catalog',
   components: {
       'AppDetail': Detail,
       'AppOrder': Order,
       'AppSocCop': SocialCopir,
+      'vselect': vSelect,
   },
   data () {
     return {
@@ -62,37 +74,43 @@ export default {
         content: [
             {
             "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
+            "name": "BMW",
+            "model": "Series 3",
             "descrip": "Lorem ipsum dolor sit amet",
             "price": 15000
             },
             {
             "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
+            "name": "BMW",
+            "model": "Series 3",
             "descrip": "Lorem ipsum dolor sit amet",
             "price": 15000
             },
             {
             "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
+            "name": "BMW",
+            "model": "Series 3",
             "descrip": "Lorem ipsum dolor sit amet",
             "price": 15000
             },
             {
             "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
+            "name": "BMW",
+            "model": "Series 3",
             "descrip": "Lorem ipsum dolor sit amet",
             "price": 15000
             },
             {
             "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
+            "name": "BMW",
+            "model": "Series 3",
             "descrip": "Lorem ipsum dolor sit amet",
             "price": 15000
             },
             {
             "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
+            "name": "BMW",
+            "model": "Series 3",
             "descrip": "Lorem ipsum dolor sit amet",
             "price": 15000
             }
@@ -111,8 +129,22 @@ export default {
         },
         toCatalog() {
             this.detail = false;
+        },
+        addToBasket(){
+            localStorage.setItem('basket', {'first': 123, 'second': 43});
+            this.$store.dispatch('fillBasket');
         }
-  }
+  },
+  filters: {
+    capitalize: function (value) {
+        if (!value) return ''
+        value = value.toString()
+        return value.toUpperCase()
+    },
+    },
+    beforeCreate(){
+        $.fn.fullpage.destroy('all');
+    },
 }
 </script>
 
@@ -143,8 +175,12 @@ export default {
 }
 .navigate_select select{
     width: 150px;
-    margin-top: 16px;
+    margin-top: 22px;
     margin-left: 20px;
+    font-size: 10pt !important;
+}
+.navigate_select option{
+    font-size: 10pt !important;
 }
 .main_wrap_content{
     position: absolute;
@@ -180,6 +216,24 @@ export default {
     width:95%;
     height: 100%;
     cursor: pointer;
+    position: relative;
+}
+.content_item_wrap:hover .non-hover-item{
+    -webkit-animation: fadeInFromNone 0.3s;
+    -moz-animation: fadeInFromNone 0.3s;
+    -o-animation: fadeInFromNone 0.3s;
+    animation: fadeInFromNone 0.3s;
+    opacity: 0;
+}
+@-webkit-keyframes fadeInFromNone {
+    0% {
+        display: block;
+        opacity: 0.7;
+    }
+    100% {
+        display: none;
+        opacity: 0;
+    }
 }
 .content_item_wrap img{
     width: 100%;
@@ -196,16 +250,17 @@ export default {
     line-height: 0.4;
 }
 .name{
-    font-weight: bold;
-    font-size: 0.8em;
+    font-family: TextProMedium;
+    font-size: 12pt;
 }
-.descript{
-    font-size: 0.7em;
+.cat-descript{
+    font-family: TextProLight;
+    font-size: 11pt;
 }
 .price{
     color: #cba35d;
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
 }
 .basket_but_wrap{
     width: 20%;
@@ -213,7 +268,7 @@ export default {
     float: left;
 }
 .basket_but{
-    margin-top: 15px;
+    margin-top: 12px;
     margin-right: 5px;
     width: 30px;
     height: 30px;
@@ -255,12 +310,15 @@ export default {
     border: 1px solid rgba(128, 128, 128, 0.5);
 }
 .title_text{
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
     cursor: pointer;
 }
 .selectet_text{
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
+    margin-top: 17px;
+    margin-left: 3px;
     cursor: pointer;
 }
 .navigate_select select{
@@ -271,17 +329,54 @@ export default {
     outline: none;
     padding-top: 2px;
     padding-left: 2px;
-    font-size: 0.9em;
+    font-size: 12pt;
+    font-family: TextProLight;
+    cursor: pointer;
 }
 .navigate_select select option{
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
 }
 .navigate_select_title{
-    font-size: 0.8em;
+    font-size: 12pt;
     padding-top: 6px;
+    font-family: TextProLight;
 }
 .detail_name{
-    font-size: 0.8em;
-    font-weight: bold;
+    margin-top: 17px;
+    margin-left: 3px;
+    font-size: 12pt;
+    font-family: TextProMedium;
+}
+.non-hover-item{
+    width: 100%;
+    height: 150px;
+    position:absolute;
+    background-color:rgba($color: #ffffff, $alpha: 0.8);
+    -webkit-animation: fadeOutFromNone 0.3s;
+    -moz-animation: fadeOutFromNone 0.3s;
+    -o-animation: fadeOutFromNone 0.3s;
+    animation: fadeOutFromNone 0.3s;
+    opacity: 0.7;
+}
+@-webkit-keyframes fadeOutFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        opacity: 0.7;
+    }
+}
+.non-hover-item table{
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+.non-hover-item p{
+    font-family: TextProCondBold;
+    color: #333333;
+    font-size: 24pt;
 }
 </style>

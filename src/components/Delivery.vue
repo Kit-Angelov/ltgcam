@@ -5,7 +5,7 @@
             <div class="content-delivery">
                 <p class="title">ДОСТАВКА</p>
                 <p class="sub-title">
-                    Быстро и бесплатно доставим Ваш заказ по всей России
+                    Быстро и бесплатно доставим ваш заказ по всей России
                 </p>
                 <div class="places">
                     <div class="place first_place">
@@ -41,16 +41,17 @@
                         <p class="text_descript">
                             В случае доставки курьером покупатели могут<br/>
                             оплатить заказ как наличным, так и безналичным<br/>
-                            способом
+                            способом.
                         </p>
                         <p class="text_descript">
                             Услуги доставки оказывает курьерская служба<br/>
-                            "СДЭК"
+                            "СДЭК".
                         </p>
                         <p class="text_descript">
                             Нам очень важны ваши отзывы. Пожалуйста,<br/>
                             поделитесь предложениями<br/>
-                            и мнением о сайте и сервисе, отправив письмо нам
+                            и мнением о сайте и сервисе, отправив письмо
+                            <p class="text_descript_email" @click="openEmail()">нам на почту.</p>
                         </p>
                     </div>
                     <div class="right_part">
@@ -62,8 +63,8 @@
                         </p>
                         <p class="span_descript">Банковская карта</p>
                         <p class="text_descript">
-                            Курьеры принимаю к оплате банковские карты.<br/>
-                            Оплата заказ картой возможна во всех пунктах<br/>
+                            Курьеры принимают к оплате банковские карты.<br/>
+                            Оплата заказа картой возможна во всех пунктах<br/>
                             самовывоза.<br/>
                             Оплата банковской картой через интернет<br/>
                             возможна через системы электронных платежей.
@@ -82,7 +83,15 @@ export default {
     name: 'Delivery',
     components:{
         'AppSocCop': SocialCopir,
-    }
+    },
+    methods: {
+        openEmail() {
+            window.location.href = "mailto:info@ltgcam.ru?subject=&body="
+        }
+    },
+    beforeCreate(){
+        $.fn.fullpage.destroy('all');
+    },
 }
 </script>
 <style lang="scss" scoped>
@@ -97,8 +106,8 @@ export default {
 }
 .wrap-delivery{
     width: 100%;
-    height:80%;
-    top:20%;
+    height:84%;
+    top:16%;
     position: absolute;
 }
 .content-delivery{
@@ -106,7 +115,7 @@ export default {
     min-width: 600px;
     margin: auto;
     height:100%;
-    background-color: #070506;
+    background-color: #242424;
     padding-left: 50px;
     padding-right: 40px;
     padding-top: 0;
@@ -114,13 +123,14 @@ export default {
     text-align: left;
 }
 .title{
-    font-size: 1.7em;
-    font-weight: bold;
+    font-size: 26pt;
+    font-family: TextProBold;
     margin: 0;
     padding-top: 40px;
 }
 .sub-title{
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
     margin-top: 5px;
 }
 .places{
@@ -147,13 +157,13 @@ export default {
     height:auto;
 }
 .name_place{
-    font-size: 0.9em;
-    font-weight: bold;
+    font-size: 16pt;
+    font-family: TextProMedium;
     color: #cba35d;
 }
 .time_place{
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 14pt;
+    font-family: TextProMedium;
 }
 .descript{
     width: 100%;
@@ -171,16 +181,50 @@ export default {
     margin-left:5%;
 }
 .title_descript{
-    font-size: 1.2em;
-    font-weight: bold;
+    font-size: 16pt;
+    font-family: TextProBold;
 }
 .text_descript{
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
+    margin-bottom: 0;
+}
+.text_descript_email{
+    line-height: 0.2;
+    font-size: 12pt;
+    display: inline;
+    font-family: TextProLight;
+    color: #cba35d;
+    text-decoration: underline;
+    cursor: pointer;
 }
 .span_descript{
-    font-weight: bold;
-    font-size: 0.9em;
+    font-size: 16pt;
+    font-family: TextProMedium;
     color: #cba35d;
+}
+@media all and (max-width: 1367px) {
+.title{
+    font-size: 22pt;
+}
+.name_place{
+    font-size: 12pt;
+}
+.time_place{
+    font-size: 11pt;
+}
+.title_descript{
+    font-size: 12pt;
+}
+.text_descript{
+    font-size: 10pt;
+}
+.span_descript{
+    font-size: 12pt;
+}
+.text_descript_email{
+    font-size: 10pt;
+}
 }
 </style>
 

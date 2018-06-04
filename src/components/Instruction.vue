@@ -25,7 +25,7 @@
             </div>
         </div>
         <full-page :options="options" id="fullpage">
-            <div class="section ins_first_section" id="first">
+            <div class="section ins_first_section">
                 <div class="ins_wrap_section">
                     <div class="ins_grid_wrap">
                         <div class="ins_elem_grid">
@@ -79,52 +79,60 @@
                     </div>
                 </div>
             </div>
-            <div class="section ins_second_section" id="second">
+            <div class="section ins_second_section">
                 <div class="ins_wrap_section">
                     <div class="ins_grid_wrap">
                         <div class="ins_elem_grid">
-                            <img src="../assets/img/ins01.png">
+                            <img src="../assets/img/ins05.png">
                             <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
-                                            <p>Снять пластиковый кожух</p>
+                                            <p>Снять боковую накладку приборной панели</p>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="ins_elem_grid">
-                            <img src="../assets/img/ins02.png">
+                            <img src="../assets/img/ins06.png">
                             <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
-                                            <p>Приготовить регистратор<br/>к установке</p>
+                                            <p>Протянуть провод HOST<br/>к регистратору</p>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="ins_elem_grid">
-                            <img src="../assets/img/ins03.png">
+                            <img src="../assets/img/ins07.png">
                             <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
-                                            <p>Закрепить регистратор на кожух до щелчка</p>
+                                            <p class="many_text">Через зеркало заднего вида по внутреннему каналу
+                                                под обшивкой потолка
+                                                и боковой обшивкой
+                                                к блоку предохранителей
+                                                проянуть провод HOST
+                                            </p>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="ins_elem_grid">
-                            <img src="../assets/img/ins04.png">
+                            <img src="../assets/img/ins08.png">
                             <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
-                                            <p>Снять боковую накладку рамки стекла</p>
+                                            <p>У регистратора 3 провода:<br/>
+                                            желтый (BAT B+),<br/>
+                                            красный (ACC)<br/>
+                                            и чёрный (масса)</p>
                                         </td>
                                     </tr>
                                 </table>
@@ -133,52 +141,63 @@
                     </div>
                 </div>
             </div>
-            <div class="section ins_third_section" id="third">
+            <div class="section ins_third_section">
                 <div class="ins_wrap_section">
                     <div class="ins_grid_wrap">
                         <div class="ins_elem_grid">
-                            <img src="../assets/img/ins01.png">
+                            <img src="../assets/img/ins09.png">
                             <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
-                                            <p>Снять пластиковый кожух</p>
+                                            <p class="many_text">
+                                                Желтый подключить в место с постоянным током,
+                                                где независимо от положения ключа зажигания
+                                                подаётся 12V; красный подключить в место, куда
+                                                подаётся ток при зажигании 
+                                            </p>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="ins_elem_grid">
-                            <img src="../assets/img/ins02.png">
+                            <img src="../assets/img/ins10.png">
                             <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
-                                            <p>Приготовить регистратор<br/>к установке</p>
+                                            <p>Массу крепим<br/>на корпус</p>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="ins_elem_grid">
-                            <img src="../assets/img/ins03.png">
+                            <img src="../assets/img/ins11.png">
                             <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
-                                            <p>Закрепить регистратор на кожух до щелчка</p>
+                                            <p>Подкючит провод<br/>
+                                                от регистратора<br/>
+                                                к проводу HOST
+                                            </p>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                         <div class="ins_elem_grid">
-                            <img src="../assets/img/ins04.png">
+                            <img src="../assets/img/ins12.png">
                             <div class="ins_elem_text">
                                 <table>
                                     <tr>
                                         <td>
-                                            <p>Снять боковую накладку рамки стекла</p>
+                                            <p>
+                                                Установить кожух<br/>
+                                                с регистратором
+                                            </p>
                                         </td>
                                     </tr>
                                 </table>
@@ -219,9 +238,12 @@ export default {
             $.fn.fullpage.moveTo(page_id, page_id);
         },
     },
-    destroyed: function() {
+    beforeCreate(){
         $.fn.fullpage.destroy('all');
-    }
+    },
+    // destroyed: function() {
+    //     $.fn.fullpage.destroy('all');
+    // }
 }
 </script>
 <style lang="scss">
@@ -350,28 +372,41 @@ export default {
     text-align: left;
 }
 .ins_title{
-    font-weight: bold;
-    font-size: 1.5em;
+    font-family: TextProBold;
+    font-size: 26pt;
     margin-bottom: 0;
+}
+@media all and (max-width: 1367px) {
+    .ins_title{
+        font-family: TextProBold;
+        font-size: 18pt;
+        margin-bottom: 0;
+    }
+    .ins_title_text{
+        margin-top: 5px;
+        font-size: 10pt !important;
+        font-family: TextProLight;
+    }
 }
 .ins_title_text{
     margin-top: 5px;
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
 }
 .ins_wrap_section{
     width:74%;
     min-width: 1000px;
     margin: auto;
-    height: 50%;
-    margin-top: 12vh;
+    height: 100%;
 }
 .ins_grid_wrap{
+    padding-top: 20%;
     width: 100%;
     height: 100%;
     display: grid;
     grid-gap: 25px;
     grid-template-columns: repeat(2, 47%);
-    grid-template-rows: repeat(2);
+    grid-template-rows: repeat(2, 27%);
 }
 .ins_elem_grid{
     background-color: transparent;
@@ -399,9 +434,18 @@ export default {
     text-align: left;
 }
 .ins_elem_text p{
-    font-weight: bold;
-    font-size: 1em;
+    font-size: 14pt;
+    font-family: TextProMedium;
 }
+.many_text{
+    font-size: 12pt !important;
+}
+@media all and (max-width: 1367px) {
+.many_text{
+    font-size: 10pt !important;
+}
+}
+
 </style>
 
 
