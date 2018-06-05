@@ -110,7 +110,10 @@ export default {
   components: {
       'AppSocCop': SocialCopir,
       'AppOrder': Order,
-  }
+  },
+  beforeCreate(){
+        $.fn.fullpage.destroy('all');
+    },
 }
 </script>
 

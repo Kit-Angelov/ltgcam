@@ -361,7 +361,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 70px;
-    top:15vh;
+    top:13vh;
     z-index: 99;
 }
 .ins_title_content{
@@ -376,7 +376,7 @@ export default {
     font-size: 26pt;
     margin-bottom: 0;
 }
-@media all and (max-width: 1367px) {
+@media all and (max-width: 1500px) {
     .ins_title{
         font-family: TextProBold;
         font-size: 18pt;
@@ -440,7 +440,7 @@ export default {
 .many_text{
     font-size: 12pt !important;
 }
-@media all and (max-width: 1367px) {
+@media all and (max-width: 1500px) {
 .many_text{
     font-size: 10pt !important;
 }
