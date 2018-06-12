@@ -39,7 +39,7 @@
                             <p class="price">{{ item.price }}</p>
                         </div>
                         <div class="basket_but_wrap">
-                            <div class="basket_but" @click="addToBasket()">
+                            <div class="basket_but" @click="addToBasket(item.id)">
                                 <img class="basket_but_img" src="../assets/img/add.svg"/>
                             </div>
                         </div>
@@ -51,6 +51,10 @@
         <div class="over" v-if="popup" @click="closePopup()"></div>
         <app-order v-if="popup"></app-order>
         <app-soc-cop></app-soc-cop>
+        <div class="over-added" v-if="added" @click="closeAdded()"></div>
+        <transition name="fade">
+        <app-added v-if="added" v-on:closeAdded="closeAdded()"></app-added>
+        </transition>
   </div>
 </template>
 
@@ -58,7 +62,9 @@
 import Detail from './Detail.vue';
 import Order from './Order.vue';
 import SocialCopir from './SocialCopir.vue';
-import vSelect from 'vue-select'
+import vSelect from 'vue-select';
+import content from './content';
+import Added from './Added.vue';
 export default {
   name: 'Catalog',
   components: {
@@ -66,55 +72,15 @@ export default {
       'AppOrder': Order,
       'AppSocCop': SocialCopir,
       'vselect': vSelect,
+      'AppAdded': Added,
   },
   data () {
     return {
         detail: false,
         popup: false,
-        content: [
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW",
-            "model": "Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            },
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW",
-            "model": "Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            },
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW",
-            "model": "Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            },
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW",
-            "model": "Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            },
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW",
-            "model": "Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            },
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW",
-            "model": "Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            }
-        ]
+        added: false,
+        content: content,
+        basket: [],
     }
   },
   methods: {
@@ -124,14 +90,28 @@ export default {
         closePopup() {
             this.popup = false;
         },
+        closeAdded() {
+            this.added = true;
+            var self = this;
+            setTimeout(function(){
+                self.added = false;
+            }, 1000);
+        },
         detailview(){
             this.detail = true;
         },
         toCatalog() {
             this.detail = false;
         },
-        addToBasket(){
-            localStorage.setItem('basket', {'first': 123, 'second': 43});
+        addToBasket(item_id){
+            let curr_basket = JSON.parse(localStorage.getItem('basket'));
+            if (curr_basket == null) {
+                this.basket = [];
+            } else {
+                this.basket = curr_basket;
+            }
+            this.basket.push(item_id);
+            localStorage.setItem('basket', JSON.stringify(this.basket));
             this.$store.dispatch('fillBasket');
         }
   },
@@ -286,7 +266,7 @@ export default {
     height: auto;
     margin-top: 8px;
 }
-.over{
+.over, .over-added{
     width: 100%;
     height: 100%;
     top:0;
@@ -378,5 +358,11 @@ export default {
     font-family: TextProCondBold;
     color: #333333;
     font-size: 24pt;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

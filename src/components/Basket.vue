@@ -15,7 +15,7 @@
                             <img src="../assets/img/camera.jpg"/>
                             <div class="text">
                                 <p class="name">{{ item.name }}</p>
-                                <p class="descript">{{ item.descrip }}</p>
+                                <p class="descript-basket">{{ item.descrip }}</p>
                                 <p class="more">Подробнее о товаре</p>
                             </div>
                             <div class="price_wrap">
@@ -63,7 +63,7 @@ export default {
             {
             "img": "../assets/img/camera.jpg",
             "name": "BMW Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
+            "descrip": "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet",
             "price": 15000
             },
             {
@@ -153,12 +153,13 @@ export default {
     margin: auto;
 }
 .top_pane_text{
-    font-size: 0.8em;
+    font-family: TextProLight;
+    font-size: 12pt;
     float: left;
 }
 .top_pane_count{
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
     float: left;
     margin-left: 5px;
 }
@@ -204,28 +205,38 @@ export default {
     text-align: left;
     float: left;
     margin-left: 10px;
-    padding-top: 9px;
 }
 .text p{
-    line-height: 0.4;
+    line-height: 1;
 }
 .name{
-    font-weight: bold;
-    font-size: 0.8em;
+    font-family: TextProMedium;
+    font-size: 12pt;
+    margin-bottom: 0;
+    margin-top: 10px;
 }
-.descript{
-    font-size: 0.7em;
+.descript-basket{
+    font-family: TextProLight;
+    font-size: 10pt;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-top: 8px;
+    margin-bottom: 0;
 }
 .more{
-    font-size: 0.7em;
+    font-size: 12pt;
+    font-family: TextProLight;
     color: gray;
     text-decoration: underline;
+    margin-top: 8px;
+    cursor: pointer;
 }
 .price{
-    padding-top: 19px;
+    padding-top: 15px;
     color: #cba35d;
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
 }
 .price_wrap{
     float:left;
@@ -244,6 +255,7 @@ export default {
     height: 20px;
     float: left;
     background-color:#cf3835;
+    cursor: pointer;
 }
 .basket_but:hover{
     background-color: #ce4c4c;
@@ -262,25 +274,27 @@ export default {
     margin-top: 0;
 }
 .control-text{
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
 }
 .sum-span{
-    font-size: 1em;
-    font-weight: bold;
+    font-size: 14pt;
+    font-family: TextProMedum;
 }
 .sum{
-    font-size: 0.8em;
+    font-size: 12pt;
+    font-family: TextProLight;
 }
 .buy{
     background-color: #cf3835;
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
     outline: none;
     border: none;
     padding: 10px 23px;
     padding-top: 12px;
     margin-top: 10px;
+    cursor: pointer;
 }
 .buy:hover{
     background-color: #ce4c4c;

@@ -195,7 +195,7 @@ a {
   background-color: #ce4c4c;
   border-radius: 50%;
   top:13px;
-  right: 4px;
+  right: 3px;
 }
 .basket_img{
   width: 100%;

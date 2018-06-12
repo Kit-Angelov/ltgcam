@@ -59,7 +59,7 @@ export default {
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -210px;
+    margin-top: -220px;
     margin-left: -210px;
     background-color: rgba($color: #292929, $alpha: 1);
     z-index: 999;
@@ -69,8 +69,8 @@ export default {
     text-align: left;
 }
 .title{
-    font-size: 1.2em;
-    font-weight: bold;
+    font-size: 14pt;
+    font-family: TextProMedium;
     margin-top:0;
 }
 .full{
@@ -104,7 +104,8 @@ textarea{
     padding-left: 2%;
     color: white;
     outline: none;
-    font-size: 1em;
+    font-size: 12pt;
+    font-family: TextProLight;
     padding-top:5px;
     margin-top: 17px;
     resize: none;
@@ -116,8 +117,8 @@ textarea{
     text-align: left;
 }
 .left p{
-    font-size: 0.9em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
     margin-bottom: 0;
 }
 .left p:nth-of-type(2){
@@ -130,8 +131,8 @@ textarea{
     text-align: left;
 }
 .right_title{
-    font-size: 0.9em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
 }
 .right input{
     margin-left:0;
@@ -161,14 +162,15 @@ textarea{
 }
 .label_text{
     float: left;
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
     margin-top:0;
     margin-left:9px;
     margin-bottom: 0;
 }
 .sub_radio_label{
-    font-size: 0.7em;
+    font-size: 9pt;
+    font-family: TextProLight;
     color: gray;
     float:left;
     margin-top:0;
@@ -181,8 +183,8 @@ textarea{
 }
 button{
     background-color: #cf3835;
-    font-size: 0.8em;
-    font-weight: bold;
+    font-size: 12pt;
+    font-family: TextProMedium;
     outline: none;
     border: none;
     padding: 10px 23px;
