@@ -4,26 +4,28 @@
         <div class="top_pane">
             <div class="top_pane_wrap">
                 <p class="top_pane_text">Ваша корзина: </p>
-                <p class="top_pane_count">{{ count }} товара</p>
+                <p class="top_pane_count">{{ content.length }} товара</p>
             </div>
         </div>
-        <div class="main_wrap_content">
-            <div class="wrap_content">
-                <div class="content">
-                    <div class="content_item" v-for="item in content" :key="item.name">
-                        <div class="content_item_wrap">
-                            <img src="../assets/img/camera.jpg"/>
-                            <div class="text">
-                                <p class="name">{{ item.name }}</p>
-                                <p class="descript-basket">{{ item.descrip }}</p>
-                                <p class="more">Подробнее о товаре</p>
-                            </div>
-                            <div class="price_wrap">
-                                <p class="price">{{ item.price }} Руб</p>
-                            </div>
-                            <div class="basket_but_wrap">
-                                <div class="basket_but">
-                                    <img class="basket_but_img" src="../assets/img/cancel.svg"/>
+        <div class="basket-main_wrap_content">
+            <div class="basket-wrap_content">
+                <div class="basket-content-wrap-body">
+                    <div class="basket-content">
+                        <div class="basket-content_item" v-for="item in content" :key="item.name">
+                            <div class="basket-content_item_wrap">
+                                <img :src="item.main_photo.photo"/>
+                                <div class="text">
+                                    <p class="name">{{item.mark.name}} {{ item.name }}</p>
+                                    <p class="descript-basket">{{ item.description.text }}</p>
+                                    <p class="more">Подробнее о товаре</p>
+                                </div>
+                                <div class="price_wrap">
+                                    <p class="price">{{ item.price }} Руб</p>
+                                </div>
+                                <div class="basket_but_wrap">
+                                    <div class="basket_but">
+                                        <img class="basket_but_img" src="../assets/img/cancel.svg"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -33,10 +35,10 @@
                     <div class="content-control">
                         <p class="control-text">Ваш заказ:</p>
                         <p class="sum">
-                            <span class="sum-span">{{ count }}</span> 
+                            <span class="sum-span">{{ content.length }}</span> 
                             товара на сумму 
-                            <span class="sum-span">{{ sum }}</span>
-                             Руб
+                            <span class="sum-span">{{ main_sum }}</span>
+                                Руб
                         </p>
                         <button class="buy" @click="buyClick()">ОФОРМИТЬ</button>
                     </div>
@@ -56,47 +58,9 @@ export default {
   name: 'Basket',
   data () {
     return {
-        count: 4,
-        sum: 60000,
         popup: false,
-        content: [
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
-            "descrip": "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet",
-            "price": 15000
-            },
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            },
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            },
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            },
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            },
-            {
-            "img": "../assets/img/camera.jpg",
-            "name": "BMW Series 3",
-            "descrip": "Lorem ipsum dolor sit amet",
-            "price": 15000
-            }
-        ]
+        content: [],
+        main_sum: 0,
     }
   },
   methods: {
@@ -110,6 +74,17 @@ export default {
   components: {
       'AppSocCop': SocialCopir,
       'AppOrder': Order,
+  },
+  mounted() {
+      this.content = JSON.parse(localStorage.getItem('basket'));
+  },
+  watch: {
+      content(newContent, oldContent) {
+          for (let item of this.content) {
+              alert(item.name)
+              this.main_sum += item.price
+          }
+      }
   },
   beforeCreate(){
         $.fn.fullpage.destroy('all');
@@ -133,18 +108,21 @@ export default {
     top: 20vh;
 }
 
-.main_wrap_content{
+.basket-main_wrap_content{
     position: absolute;
     top: 27vh;
     width: 100%;
-    min-height: 80px;
-    max-height: 350px;
+    height: 50%;
 }
-.wrap_content{
+.basket-wrap_content{
     width: 74%;
     min-width: 1000px;
     margin: auto;
     height: 100%;
+}
+.basket-content-wrap-body{
+    width:100%;
+    height: 78%;
     overflow-y: auto;
 }
 .top_pane_wrap{
@@ -167,7 +145,7 @@ export default {
     width:100%;
     height: auto;
     float: left;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 .content-control{
     width:97.5%;
@@ -175,25 +153,25 @@ export default {
     float:left;
     text-align: right;
 }
-.content{
+.basket-content{
     display: grid;
     width: 100%;
     height: auto;
     grid-gap: 0px;
-    grid-template-columns: repeat(auto-fit, minmax(50%, 1fr));
+    grid-template-columns: repeat(auto-fit, 50%);
     grid-template-rows: repeat(auto-fit);
 }
-.content_item{
+.basket-content_item{
     float: left;
     height: 80px;
     margin-bottom: 20px;
 }
-.content_item_wrap{
+.basket-content_item_wrap{
     width:95%;
     height: 100%;
     background-color: rgba($color: gray, $alpha: 0.1)
 }
-.content_item_wrap img{
+.basket-content_item_wrap img{
     width: 130px;
     height: 100%;
     object-fit: cover;
@@ -324,5 +302,19 @@ export default {
     background-color: rgba($color: #000000, $alpha: 0.5);
     position: fixed;
     z-index: 998;
+}
+.basket-content-wrap-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.basket-content-wrap-body::-webkit-scrollbar-track {
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.basket-content-wrap-body::-webkit-scrollbar-thumb {
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
 }
 </style>

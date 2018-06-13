@@ -1,10 +1,10 @@
 <template>
     <div id="callback">
         <div class="form_client">
-            <form>
-                <input class="input_full" placeholder="ФИО*" required/>
-                <input class="input_full" type="tel" placeholder="Телефон*" required/>
-                <textarea placeholder="Комментарий"></textarea>
+            <form @submit="sendOrderCall(); $emit('orderCallSend')">
+                <input v-model="call.fio" class="input_full" placeholder="ФИО*" minlength="3" maxlength="70" required/>
+                <input v-model="call.phone" class="input_full" type="tel" placeholder="Телефон*" minlength="3" maxlength="20" required/>
+                <textarea v-model="call.comment" placeholder="Комментарий"></textarea>
                 <button type="submit" class="sumbit">ЗАКАЗАТЬ ЗВОНОК</button>
                 <p class="toback" @click="$emit('backTo')">Назад к контактам</p>
             </form>
@@ -12,12 +12,25 @@
     </div>
 </template>
 <script>
+import host from './host.js'
 export default {
     name: "Callback",
     methods: {
         backTo() {
             callback = true;
         },
+        sendOrderCall() {
+            var data = this.call
+            this.$http.post(host + 'order_call', data).then(function(response) {
+            }, function(error) {
+            }),
+            this.call = {};
+        }
+    },
+    data() {
+        return {
+            call: {},
+        }
     }
 }
 </script>

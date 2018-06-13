@@ -38,7 +38,7 @@
                                         <button class="order_call" @click="ordercall()">ЗАКАЗАТЬ ЗВОНОК</button>
                                         </div>
                                         <div v-else>
-                                            <app-callback v-on:backTo="backTo()"></app-callback>
+                                            <app-callback v-on:backTo="backTo()" v-on:orderCallSend="orderCallSend()"></app-callback>
                                         </div>
                                     </td>
                                 </tr>
@@ -147,12 +147,12 @@
                                 <tr>
                                     <td>
                                         <div class="form_parnter">
-                                            <form>
-                                                <input class="input_full" placeholder="ФИО*" required/>
-                                                <input class="input_full" placeholder="Название компании"/>
-                                                <input class="input_little" type="tel" placeholder="Телефон*" required/>
-                                                <input class="input_great" type="email" placeholder="E-mail*" required/>
-                                                <textarea placeholder="Комментарий"></textarea>
+                                            <form @submit="sendPartnerCall()">
+                                                <input class="input_full" placeholder="ФИО*" v-model="partenrCall.fio" minlength="3" maxlength="70" required/>
+                                                <input class="input_full" placeholder="Название компании" v-model="partenrCall.company" minlength="3" maxlength="70"/>
+                                                <input class="input_little" type="tel" placeholder="Телефон*" v-model="partenrCall.phone" minlength="3" maxlength="20" required/>
+                                                <input class="input_great" type="email" placeholder="E-mail*" v-model="partenrCall.email" minlength="3" maxlength="70" required/>
+                                                <textarea placeholder="Комментарий" v-model="partenrCall.comment"></textarea>
                                                 <button type="submit" class="sumbit">ОТПРАВИТЬ</button>
                                             </form>
                                         </div>
@@ -165,6 +165,14 @@
             </div>
         </full-page>
         <app-soc-cop></app-soc-cop>
+        <div class="over-order-call-send" v-if="orderCallSendCheck" @click="closeOrderCallSend()"></div>
+        <transition name="fade">
+        <app-order-call-send v-if="orderCallSendCheck" v-on:closeOrderCallSend="closeOrderCallSend()"></app-order-call-send>
+        </transition>
+        <div class="over-order-call-send" v-if="partnerCallSendCheck" @click="closeOrderCallSend()"></div>
+        <transition name="fade">
+        <app-order-call-send v-if="partnerCallSendCheck" v-on:closePartnerCallSend="closePartnerCallSend()"></app-order-call-send>
+        </transition>
     </div>
 </template>
 
@@ -173,6 +181,9 @@ import FullPage from 'vue-fullpage.js';
 import Map from './Map.vue';
 import Callback from './Callback.vue'
 import SocialCopir from './SocialCopir.vue'
+import OrderCallSend from './OrderCallSend.vue'
+import PartnerCallSend from './PartnerCallSend.vue'
+import host from './host.js'
 export default {
     name: "Contacts",
     components: {
@@ -180,10 +191,15 @@ export default {
       'AppMap': Map,
       'AppCallback': Callback,
       'AppSocCop': SocialCopir,
+      'AppOrderCallSend': OrderCallSend,
+      'AppPartnerCallSend': PartnerCallSend,
 },
     data () {
         return {
         callback: true,
+        orderCallSendCheck: false,
+        partenrCall: {},
+        partnerCallSendCheck: false,
         options: {
                 paddingTop: '0',
                 navigation: true,
@@ -197,6 +213,20 @@ export default {
         backTo() {
             this.callback = true;
         },
+        orderCallSend() {
+            this.callback = true;
+            this.orderCallSendCheck = true;
+            var self = this;
+            setTimeout(function(){
+                self.orderCallSendCheck = false;
+            }, 2000);
+        },
+        closeOrderCallSend() {
+            this.orderCallSendCheck = false;
+        },
+        closePartnerCallSend() {
+            this.partnerCallSendCheck = false;
+        },
         next(){
             $.fn.fullpage.moveSectionDown();
         },
@@ -208,6 +238,21 @@ export default {
         },
         openEmail() {
             window.location.href = "mailto:info@ltgcam.ru?subject=&body="
+        },
+        sendPartnerCall() {
+            var data = this.partenrCall
+            this.$http.post(host + 'partners_call', data).then(function(response) {
+            }, function(error) {
+            }),
+            this.partnerCallSendCheck = true;
+            var self = this;
+            setTimeout(function(){
+                self.partnerCallSendCheck = false;
+            }, 2000);
+            this.partenrCall = {}
+        },
+        closeOrderCallSend() {
+            this.partnerCallSendCheck = false;
         }
     },
     beforeCreate(){
@@ -584,6 +629,21 @@ export default {
   left:0 !important;
   background-color: transparent !important;
   border: 1px solid white !important;
+}
+.over-order-call-send{
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    position: fixed;
+    z-index: 998;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
 

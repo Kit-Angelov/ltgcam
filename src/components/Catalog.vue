@@ -5,13 +5,12 @@
             <div class="wrap_top_pane">
                 <div class="navigate_text">
                     <p class="title_text" @click="toCatalog()">Видеорегистраторы</p>
-                    <p class="selectet_text" @click="toCatalog()">&rarr; BMW</p>
+                    <p class="selectet_text" @click="toCatalog()">&rarr; {{category_choses.name}}</p>
                     <p class="detail_name" v-if="detail">&rarr; Series 3</p>
                 </div>
                 <div class="navigate_select" v-if="!detail">
-                    <select>
-                        <option>BMW</option>
-                        <option>VOLVO</option>
+                    <select v-model="category_choses">
+                        <option v-for="cat in category" :value="cat" :key="cat.id">{{cat.name}}</option>
                     </select>
                     <p class="navigate_select_title">Марка автомобиля:</p>
                 </div>
@@ -21,7 +20,7 @@
         <div class="main_wrap_content" v-else>
             <div class="wrap_content">
                 <div class="content">
-                <div class="content_item" v-for="item in content" :key="item.name">
+                <div class="content_item" v-if="item.mark.id == category_choses.id" v-for="item in auto_models" :key="item.name">
                     <div class="content_item_wrap">
                         <div class="non-hover-item" @click="detailview()">
                             <table>
@@ -32,14 +31,14 @@
                                 </tr>
                             </table>
                         </div>
-                        <img src="../assets/img/camera.jpg" @click="detailview()"/>
+                        <img :src="item.main_photo.photo" @click="detailview()"/>
                         <div class="text" @click="detailview()">
-                            <p class="name">{{ item.name }} {{item.model}}</p>
-                            <p class="cat-descript">{{ item.descrip }}</p>
-                            <p class="price">{{ item.price }}</p>
+                            <p class="cat-name">{{ item.name }} {{item.model}}</p>
+                            <p class="cat-descript">{{ item.description.text }}</p>
+                            <p class="cat-price">{{ item.price }} Руб.</p>
                         </div>
                         <div class="basket_but_wrap">
-                            <div class="basket_but" @click="addToBasket(item.id)">
+                            <div class="basket_but" @click="addToBasket(item)">
                                 <img class="basket_but_img" src="../assets/img/add.svg"/>
                             </div>
                         </div>
@@ -47,7 +46,7 @@
                 </div>
             </div>
             </div>
-        </div>
+        </div> 
         <div class="over" v-if="popup" @click="closePopup()"></div>
         <app-order v-if="popup"></app-order>
         <app-soc-cop></app-soc-cop>
@@ -63,8 +62,9 @@ import Detail from './Detail.vue';
 import Order from './Order.vue';
 import SocialCopir from './SocialCopir.vue';
 import vSelect from 'vue-select';
-import content from './content';
 import Added from './Added.vue';
+import host from './host.js';
+import content from './content.js';
 export default {
   name: 'Catalog',
   components: {
@@ -79,9 +79,27 @@ export default {
         detail: false,
         popup: false,
         added: false,
-        content: content,
+        category: [],
         basket: [],
+        category_choses: {},
+        auto_models: [],
     }
+  },
+  mounted () {
+      this.$http.get(host + 'marks/').then(function(response) {
+          this.category = response.data;
+          this.category_choses = response.data[0];
+          console.log(response)
+      }, function(error) {
+          console.log(error)
+      });
+
+      this.$http.get(host + 'auto_model/').then(function(response) {
+          this.auto_models = response.data;
+          console.log(response)
+      }, function(error) {
+          console.log(error)
+      });
   },
   methods: {
         buyOneClick() {
@@ -91,11 +109,7 @@ export default {
             this.popup = false;
         },
         closeAdded() {
-            this.added = true;
-            var self = this;
-            setTimeout(function(){
-                self.added = false;
-            }, 1000);
+            this.added = false;
         },
         detailview(){
             this.detail = true;
@@ -103,16 +117,21 @@ export default {
         toCatalog() {
             this.detail = false;
         },
-        addToBasket(item_id){
+        addToBasket(item){
             let curr_basket = JSON.parse(localStorage.getItem('basket'));
             if (curr_basket == null) {
                 this.basket = [];
             } else {
                 this.basket = curr_basket;
             }
-            this.basket.push(item_id);
+            this.basket.push(item);
             localStorage.setItem('basket', JSON.stringify(this.basket));
             this.$store.dispatch('fillBasket');
+            this.added = true;
+            var self = this;
+            setTimeout(function(){
+                self.added = false;
+            }, 1000);
         }
   },
   filters: {
@@ -173,7 +192,7 @@ export default {
     min-width: 1000px;
     margin: auto;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .wrap_top_pane{
     width: 74%;
@@ -185,7 +204,7 @@ export default {
     width: 100%;
     height: auto;
     grid-gap: 0px;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, 240px);
     grid-template-rows: repeat(auto-fit);
 }
 .content_item{
@@ -229,15 +248,23 @@ export default {
 .text p{
     line-height: 0.4;
 }
-.name{
+.cat-name{
     font-family: TextProMedium;
     font-size: 12pt;
+    margin-bottom: 10px;
 }
 .cat-descript{
     font-family: TextProLight;
     font-size: 11pt;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1 !important;
+    margin-top:0;
+    margin-bottom:0;
 }
-.price{
+.cat-price{
+    margin-top: 10px;
     color: #cba35d;
     font-size: 12pt;
     font-family: TextProMedium;
