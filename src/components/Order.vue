@@ -1,17 +1,17 @@
 <template>
     <div id="order">
         <div class="wrap">
-            <form>
+            <form @submit="buy();$emit('closeOrder')">
             <p class="title">Оформление заказа</p>
-            <input class="full" placeholder="Имя Фамилия*" required>
-            <input class="half" type="e-mail" placeholder="e-mail*" required>
-            <input class="half" type="tel" placeholder="телефон*" required>
-            <input class="half" placeholder="город/населённый пункт*" required>
-            <input class="half" placeholder="почтовый индекс*" required>
-            <textarea placeholder="адрес* (улица, номер дома, подъезд, этаж, квартира)" required></textarea>
+            <input class="full" v-model="info.name" placeholder="Имя Фамилия*" required>
+            <input class="half" v-model="info.email" type="e-mail" placeholder="e-mail*" required>
+            <input class="half" v-model="info.phone" type="tel" placeholder="телефон*" required>
+            <input class="half" v-model="info.city" placeholder="город/населённый пункт*" required>
+            <input class="half" v-model="info.index" placeholder="почтовый индекс*" required>
+            <textarea v-model="info.address" placeholder="адрес* (улица, номер дома, подъезд, этаж, квартира)" required></textarea>
             <div class="left">
                 <p>Заказ на сумму:</p>
-                <p>60000 руб.</p>
+                <p>{{order_all.sum}} руб.</p>
             </div>
             <div class="right">
                 <p class="right_title">Оплата:</p>
@@ -37,18 +37,45 @@
     </div>    
 </template>
 <script>
+import host from './host.js'
 export default {
     name: 'Order',
+    props: ['orderList'],
     data() {
         return {
             checked: true,
+            order_list: this.orderList,
+            order_all: {
+                sum: 0,
+            },
+            info: {},
         }
     },
     methods: {
         check(value) {
             this.checked = value
+        },
+        buy() {
+            if (this.checked) {
+                this.info.pay_var = 'cash'
+            } else {
+                this.info.pay_var = 'card'
+            }
+            this.info.product_ids = []
+            for (let item of this.order_list) {
+                this.info.product_ids.push(item.id)
+            }
+            this.$http.post(host + 'order_buy', this.info).then(function(response) {
+            }, function(error) {
+            })
         }
-    }
+    },
+    created() {
+        this.order_all.sum = 0;
+        for (let item of this.order_list) {
+            this.order_all.sum += item.price
+        }
+    },
 }
 </script>
 <style lang="scss" scoped>

@@ -2,13 +2,13 @@
   <div id="wrap_catalog">
       <img class="back_catalog" src="../assets/img/bg_black.jpg"/>
         <div class="top_pane">
-            <div class="top_pane_wrap">
+            <div class="top_pane_wrap" v-show="basketState">
                 <p class="top_pane_text">Ваша корзина: </p>
                 <p class="top_pane_count">{{ content.length }} товара</p>
             </div>
         </div>
         <div class="basket-main_wrap_content">
-            <div class="basket-wrap_content">
+            <div class="basket-wrap_content" v-if="basketState">
                 <div class="basket-content-wrap-body">
                     <div class="basket-content">
                         <div class="basket-content_item" v-for="item in content" :key="item.name">
@@ -23,7 +23,7 @@
                                     <p class="price">{{ item.price }} Руб</p>
                                 </div>
                                 <div class="basket_but_wrap">
-                                    <div class="basket_but">
+                                    <div class="basket_but" @click="deletFromBasket(item.id)">
                                         <img class="basket_but_img" src="../assets/img/cancel.svg"/>
                                     </div>
                                 </div>
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-control-wrap">
+                <div class="content-control-wrap" v-show="basketState">
                     <div class="content-control">
                         <p class="control-text">Ваш заказ:</p>
                         <p class="sum">
@@ -44,16 +44,22 @@
                     </div>
                 </div>
             </div>
+            <p class="empty-basket-text" v-else>Ваша корзина пуста</p>
         </div>
         <app-soc-cop></app-soc-cop>
         <div class="over" v-if="popup" @click="closePopup()"></div>
-        <app-order v-if="popup"></app-order>
+        <app-order v-if="popup" v-on:closeOrder="closeOrder()" :orderList="content"></app-order>
+        <div class="over-order-buy-send" v-if="orderBuySendCheck" @click="closeOrderConfirm()"></div>
+        <transition name="fade">
+        <app-order-buy-send v-if="orderBuySendCheck" v-on:closeOrderBuySend="closeOrderConfirm()"></app-order-buy-send>
+        </transition>
   </div>
 </template>
 
 <script>
 import SocialCopir from './SocialCopir.vue'
 import Order from './Order.vue'
+import OrderBuySend from './OrderBuySend.vue'
 export default {
   name: 'Basket',
   data () {
@@ -61,6 +67,7 @@ export default {
         popup: false,
         content: [],
         main_sum: 0,
+        orderBuySendCheck: false,
     }
   },
   methods: {
@@ -70,21 +77,47 @@ export default {
         closePopup() {
             this.popup = false;
         },
+        closeOrder() {
+            this.popup = false;
+            this.orderBuySendCheck = true;
+            var self = this;
+            setTimeout(function(){
+                self.orderBuySendCheck = false;
+            }, 2000);
+        },
+        deletFromBasket(item_id) {
+            for (let elem in this.content) {
+                if (this.content[elem].id === item_id) {
+                    this.content.splice(elem, 1)
+                    localStorage.setItem('basket', JSON.stringify(this.content));
+                    this.$store.dispatch('checkBasket');
+                }
+            }
+        },
+        closeOrderConfirm() {
+            this.orderBuySendCheck = false;
+        },
   },
   components: {
       'AppSocCop': SocialCopir,
       'AppOrder': Order,
+      'AppOrderBuySend': OrderBuySend,
   },
   mounted() {
       this.content = JSON.parse(localStorage.getItem('basket'));
   },
   watch: {
       content(newContent, oldContent) {
+          this.main_sum = 0
           for (let item of this.content) {
-              alert(item.name)
               this.main_sum += item.price
           }
       }
+  },
+  computed: {
+    basketState(){
+      return this.$store.state.basketState
+    }
   },
   beforeCreate(){
         $.fn.fullpage.destroy('all');
@@ -316,5 +349,26 @@ export default {
     background-color: rgba($color: #ffffff, $alpha: 0.2);
     border-radius: 5px;
     border: 1px solid rgba(128, 128, 128, 0.5);
+}
+.empty-basket-text{
+    font-size: 25pt;
+    font-family: TextProMedium;
+    color: #cccccc;
+    padding-top: 40px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.over-order-buy-send{
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    position: fixed;
+    z-index: 998;
 }
 </style>

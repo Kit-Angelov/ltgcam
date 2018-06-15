@@ -16,13 +16,13 @@
                 </div>
             </div>
         </div>
-        <app-detail v-if="detail" v-on:popup="buyOneClick()"></app-detail>
+        <app-detail v-if="detail" :itemId="item_id" v-on:popup="buyOneClick()" v-on:tobasket="addToBasket(choose_item)"></app-detail>
         <div class="main_wrap_content" v-else>
             <div class="wrap_content">
                 <div class="content">
                 <div class="content_item" v-if="item.mark.id == category_choses.id" v-for="item in auto_models" :key="item.name">
                     <div class="content_item_wrap">
-                        <div class="non-hover-item" @click="detailview()">
+                        <div class="non-hover-item" @click="detailview(item)">
                             <table>
                                 <tr>
                                     <td>
@@ -31,8 +31,8 @@
                                 </tr>
                             </table>
                         </div>
-                        <img :src="item.main_photo.photo" @click="detailview()"/>
-                        <div class="text" @click="detailview()">
+                        <img :src="item.main_photo.photo" @click="detailview(item)"/>
+                        <div class="text" @click="detailview(item)">
                             <p class="cat-name">{{ item.name }} {{item.model}}</p>
                             <p class="cat-descript">{{ item.description.text }}</p>
                             <p class="cat-price">{{ item.price }} Руб.</p>
@@ -48,11 +48,15 @@
             </div>
         </div> 
         <div class="over" v-if="popup" @click="closePopup()"></div>
-        <app-order v-if="popup"></app-order>
+        <app-order v-if="popup" v-on:closeOrder="closeOrder()" :orderList="order"></app-order>
         <app-soc-cop></app-soc-cop>
         <div class="over-added" v-if="added" @click="closeAdded()"></div>
         <transition name="fade">
         <app-added v-if="added" v-on:closeAdded="closeAdded()"></app-added>
+        </transition>
+        <div class="over-order-buy-send" v-if="orderBuySendCheck" @click="closeOrderConfirm()"></div>
+        <transition name="fade">
+        <app-order-buy-send v-if="orderBuySendCheck" v-on:closeOrderBuySend="closeOrderConfirm()"></app-order-buy-send>
         </transition>
   </div>
 </template>
@@ -65,6 +69,7 @@ import vSelect from 'vue-select';
 import Added from './Added.vue';
 import host from './host.js';
 import content from './content.js';
+import OrderBuySend from './OrderBuySend.vue'
 export default {
   name: 'Catalog',
   components: {
@@ -73,6 +78,7 @@ export default {
       'AppSocCop': SocialCopir,
       'vselect': vSelect,
       'AppAdded': Added,
+      'AppOrderBuySend': OrderBuySend,
   },
   data () {
     return {
@@ -83,6 +89,10 @@ export default {
         basket: [],
         category_choses: {},
         auto_models: [],
+        item_id: 0,
+        choose_item: {},
+        order: [],
+        orderBuySendCheck: false,
     }
   },
   mounted () {
@@ -104,15 +114,28 @@ export default {
   methods: {
         buyOneClick() {
             this.popup = true;
+            let order_item = JSON.parse(localStorage.getItem('order'));
+            this.order = []
+            this.order.push(order_item);
         },
         closePopup() {
             this.popup = false;
         },
+        closeOrder() {
+            this.popup = false;
+            this.orderBuySendCheck = true;
+            var self = this;
+            setTimeout(function(){
+                self.orderBuySendCheck = false;
+            }, 2000);
+        },
         closeAdded() {
             this.added = false;
         },
-        detailview(){
+        detailview(choosen_item){
             this.detail = true;
+            this.item_id = choosen_item.id;
+            this.choose_item = choosen_item;
         },
         toCatalog() {
             this.detail = false;
@@ -391,5 +414,20 @@ export default {
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+.over-order-buy-send{
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    position: fixed;
+    z-index: 998;
 }
 </style>

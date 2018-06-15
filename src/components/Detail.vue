@@ -4,35 +4,30 @@
             <div class="galery">
                 <transition name="slide">
                     <div class="big_photo" :key="image">
-                        <img :src='image' mode="out-in">
+                        <img :src="image" mode="out-in">
                     </div>
                 </transition>
                 <div class="miniature">
                     <p>Ещё фото</p>
                     <div class="miniature_wrap">
-                        <div class="mini_wrap" v-for='(item, index) in content.images' :key="item">
-                            <img :src="item" @click="choose(index)"> 
+                        <div class="mini_wrap" v-for='(item, index) in content.galery_photo' :key="item">
+                            <img :src="item.photo" @click="choose(index)"> 
                         </div>
                     </div>
                 </div>
             </div>
             <div class="content">
                 <div class="top_pane">
-                    <p class="name">BMW Series 3</p>
-                    <p class="price">15000 Руб</p>
+                    <p class="name">{{content.mark.name}} {{content.name}}</p>
+                    <p class="price">{{content.price}} Руб</p>
                 </div>
                 <div class="descript">
                     <p>
-                        Видеорегистратор LTG-CAM сконструирован специально для вашего автомобиля и после установки выглядит как штатное устройство.
+                        {{content.description.text}}
                     </p>
                 </div>
                 <div class="attr">
-                    <p>- FULL HD съёмка</p>
-                    <p>- Удобство в управлении через фирменное мобильное приложение</p>
-                    <p>- Не привлекает внимания злоумышленников</p>
-                    <p>- Не создает помех для работы штатных систем автомобиля</p>
-                    <p>- Интегрировано в интерьер автомобиля</p>
-                    <p>- 2 года гарантии</p>
+                    <p v-for="option in content.main_options" :key="option">- {{option.text}}</p>
                 </div>
                 <div class="links">
                     <div class="first_link link">
@@ -49,40 +44,41 @@
                     </div>
                 </div>
                 <div class="buy_wrap">
-                    <button>В КОРЗИНУ</button>
-                    <p @click="$emit('popup')">Купить в 1 клик</p>
+                    <button @click="$emit('tobasket')">В КОРЗИНУ</button>
+                    <p @click="addToOrder();$emit('popup')">Купить в 1 клик</p>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import host from './host.js';
 export default {
     name: 'Detail',
     data () {
         return{
-            content: {
-                'images':[
-                    "./dist/camera.jpg",
-                    "./dist/ins01.png",
-                    "./dist/ins02.png",
-                    "./dist/ins03.png",
-                    "./dist/ins04.png",
-                    "./dist/camera.jpg"
-                ]
-            },
+            content: {},
+            itemid: this.itemId,
             image: "",
         }
     },
+    props: ['itemId'],
     mounted () {
-        this.image = this.content['images'][0]
+        this.$http.get(host + 'auto_model/' + this.itemid.toString() + '/').then(function(response) {
+          this.content = response.data;
+          this.image = response.data.main_photo.photo;
+      }, function(error) {
+          alert(error)
+      });
     },
     methods: {
         choose(index) {
-            console.log(index);
-            this.image = this.content.images[index]
+            this.image = this.content.galery_photo[index].photo
         },
-    }
+        addToOrder() {
+            localStorage.setItem('order', JSON.stringify(this.content));
+        }
+    },
 }
 </script>
 <style lang="scss" scoped>

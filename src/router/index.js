@@ -40,7 +40,7 @@ export default new Router({
         component: Instruction
       },
       {
-        path: '/detail',
+        path: '/detail:id',
         name: 'Detail',
         component: Detail
       },

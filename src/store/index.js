@@ -12,9 +12,11 @@ const store = new Vuex.Store({
             state[type] = items;
         },
         check(state){
-            var basketLS = localStorage.getItem('basket');
+            var basketLS = JSON.parse(localStorage.getItem('basket'));
             if (basketLS.length > 0){
                 state['basketState'] = true;
+            } else {
+                state['basketState'] = false;
             }
         }
     },
