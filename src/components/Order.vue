@@ -49,6 +49,7 @@ export default {
                 sum: 0,
             },
             info: {},
+            content: {},
         }
     },
     methods: {
@@ -56,6 +57,7 @@ export default {
             this.checked = value
         },
         buy() {
+            this.content = JSON.parse(localStorage.getItem('basket'));
             if (this.checked) {
                 this.info.pay_var = 'cash'
             } else {
@@ -64,6 +66,13 @@ export default {
             this.info.product_ids = []
             for (let item of this.order_list) {
                 this.info.product_ids.push(item.id)
+                for (let elem in this.content) {
+                if (this.content[elem].id === item.id) {
+                    this.content.splice(elem, 1)
+                    localStorage.setItem('basket', JSON.stringify(this.content));
+                    this.$store.dispatch('checkBasket');
+                }
+            }
             }
             this.$http.post(host + 'order_buy', this.info).then(function(response) {
             }, function(error) {

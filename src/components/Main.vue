@@ -194,7 +194,7 @@
                   <div class="content_section">
                     <p class="title">МОБИЛЬНОЕ<br/>ПРИЛОЖЕНИЕ</p>
                     <p class="descript">
-                      С видеорегистратора <span class="plain_span">LTG-CAM</span> вам больше не нужно
+                      С видеорегистратором <span class="plain_span">LTG-CAM</span> вам больше не нужно
                       разглядывать меню на маленьком мониторе - в нашем
                       видеорегистраторе установлен WI-FI.
                     </p>

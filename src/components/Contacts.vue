@@ -34,7 +34,7 @@
                                         <p class="first_left_text">Наша электронная почта:</p>
                                         <p class="first_left_email" @click="openEmail()">info@ltgcam.ru</p>
                                         <p class="first_left_text">Наш адрес:</p>
-                                        <p class="first_left_adres">г. Воронеж, ул. Ломоносова, дом 115, офис 16</p>
+                                        <p class="first_left_adres">г. Воронеж, ул. Ломоносова, дом 2б</p>
                                         <button class="order_call" @click="ordercall()">ЗАКАЗАТЬ ЗВОНОК</button>
                                         </div>
                                         <div v-else>
@@ -50,27 +50,20 @@
                     </div>
                 </div>
             </div>
-            <div class="section con-second_section">
+            <div class="section con-second_section" id="second">
                 <div class="con-wrap_section">
                     <div class="con-left_part con-part">
                         <div class="con-second_left_content_wrap">
                         <table>
                                 <tr>
                                     <td>
-                                        <p class="third_left_title">КОМАНДА LTG CAM</p>
-                                         <p class="second_left_text">
-                                            С каждым днем видеорегистраторы LTG CAM завоевывают<br/>
-                                            все больше и больше поклонников по всему миру.<br/>
-                                            Автолюбители, для которых безопасность и уверенность<br/>
-                                            на дороге не пустой звук, по праву оценят<br/>
-                                            продукцию нашей компании.
+                                        <p class="third_left_title team_ltg">КОМАНДА LTG CAM</p>
+                                         <p class="second_left_text team_ltg">
+                                            Мы - Команда молодых и крайне амбициозных профессионалов.<br/>
+                                            Ответим на любые вопросы и поможем в любой ситуации.<br/>
+                                            Вашему вниманию коллектив компании LTG CAM.
                                         </p>
-                                        <p class="second_left_text">
-                                            Для участия в партнерской программе LTG CAM заполните<br/>
-                                            форму обратной связи или свяжитесь с нами по телефону.<br/>
-                                            Наш менеджер поможет вам выбрать наиболее подходящий вариант<br/>
-                                            сотрудничества и оформит все необходимые документы.
-                                        </p>
+                                        <!-- <p class="second_left_text"></p> -->
                                     </td>
                                 </tr>
                         </table>
@@ -193,16 +186,38 @@ export default {
       'AppSocCop': SocialCopir,
       'AppOrderCallSend': OrderCallSend,
       'AppPartnerCallSend': PartnerCallSend,
-},
+    },
     data () {
         return {
-        callback: true,
-        orderCallSendCheck: false,
-        partenrCall: {},
-        partnerCallSendCheck: false,
-        options: {
-                paddingTop: '0',
-                navigation: true,
+            callback: true,
+            orderCallSendCheck: false,
+            partenrCall: {},
+            partnerCallSendCheck: false,
+            options: {
+                    paddingTop: '0',
+                    navigation: true,
+                }
+        }
+    },
+    mounted() {
+        let rel_path = this.$route.params.part
+        if (rel_path == 'about') {
+            this.next()
+        } else if (rel_path == 'partners') {
+            this.moveTo(3)
+        } else {
+
+        }
+    },
+    watch: {
+        '$route' (to, from) {
+            let rel_path = this.$route.params.part
+            if (rel_path == 'about') {
+                this.moveTo(2)
+            } else if (rel_path == 'partners') {
+                this.moveTo(3)
+            } else {
+                this.moveTo(1)
             }
         }
     },
@@ -464,8 +479,8 @@ export default {
     font-family: TextProLight;
 }
 .input_great{
-    width: 50%;
-    float:left;
+    width: 48.8%;
+    float: left;
     height: 20px;
     margin-bottom: 10px;
     background-color: transparent;
@@ -644,6 +659,9 @@ export default {
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+.team_ltg{
+    margin-top: -20px;
 }
 </style>
 

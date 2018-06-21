@@ -5,13 +5,22 @@
             <div class="wrap_top_pane">
                 <div class="navigate_text">
                     <p class="title_text" @click="toCatalog()">Видеорегистраторы</p>
-                    <p class="selectet_text" @click="toCatalog()">&rarr; {{category_choses.name}}</p>
-                    <p class="detail_name" v-if="detail">&rarr; Series 3</p>
+                    <p class="selectet_text" @click="toCatalog()">&rarr; {{category_choses}}</p>
+                    <p class="detail_name" v-if="detail">&rarr; {{choose_item.name}}</p>
                 </div>
                 <div class="navigate_select" v-if="!detail">
-                    <select v-model="category_choses">
-                        <option v-for="cat in category" :value="cat" :key="cat.id">{{cat.name}}</option>
-                    </select>
+                    <!-- <select v-model="category_choses">
+                        <option v-for="cat in category" :value="cat.name" :key="cat.id">{{cat.name}}</option>
+                    </select> -->
+                    <div class="select_mark" @mouseover="opening_select()" @mouseout="closing_select()">
+                        <p class="selected_mark_name">{{category_choses}}</p>
+                        <p class="arrow_down">&#8964;</p>
+                        <transition name="fade">
+                        <div v-if="open_select" class="option_mark">
+                            <p v-for="cat in category" :key="cat.id" @click="select_mark(cat)">{{cat.name}}</p>
+                        </div>
+                        </transition>
+                    </div>
                     <p class="navigate_select_title">Марка автомобиля:</p>
                 </div>
             </div>
@@ -20,20 +29,20 @@
         <div class="main_wrap_content" v-else>
             <div class="wrap_content">
                 <div class="content">
-                <div class="content_item" v-if="item.mark.id == category_choses.id" v-for="item in auto_models" :key="item.name">
+                <div class="content_item" v-if="item.mark.name == category_choses" v-for="item in auto_models" :key="item.name">
                     <div class="content_item_wrap">
                         <div class="non-hover-item" @click="detailview(item)">
                             <table>
                                 <tr>
                                     <td>
-                                        <p>{{item.model | capitalize}}</p>
+                                        <p>{{item.name | capitalize}}</p>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <img :src="item.main_photo.photo" @click="detailview(item)"/>
                         <div class="text" @click="detailview(item)">
-                            <p class="cat-name">{{ item.name }} {{item.model}}</p>
+                            <p class="cat-name">{{ item.mark.name }} {{item.name}}</p>
                             <p class="cat-descript">{{ item.description.text }}</p>
                             <p class="cat-price">{{ item.price }} Руб.</p>
                         </div>
@@ -68,7 +77,6 @@ import SocialCopir from './SocialCopir.vue';
 import vSelect from 'vue-select';
 import Added from './Added.vue';
 import host from './host.js';
-import content from './content.js';
 import OrderBuySend from './OrderBuySend.vue'
 export default {
   name: 'Catalog',
@@ -87,18 +95,18 @@ export default {
         added: false,
         category: [],
         basket: [],
-        category_choses: {},
+        category_choses: '',
         auto_models: [],
-        item_id: 0,
+        item_id: null,
         choose_item: {},
         order: [],
         orderBuySendCheck: false,
+        open_select: false,
     }
   },
   mounted () {
       this.$http.get(host + 'marks/').then(function(response) {
           this.category = response.data;
-          this.category_choses = response.data[0];
           console.log(response)
       }, function(error) {
           console.log(error)
@@ -110,8 +118,30 @@ export default {
       }, function(error) {
           console.log(error)
       });
+
+      this.category_choses = this.$route.params.mark
   },
+  watch: {
+        '$route' (to, from) {
+            this.category_choses = this.$route.params.mark
+            this.detail = false
+            this.item_id = this.$route.params.id
+            if (this.item_id) {
+                this.detail = true;
+            }
+        }
+    },
   methods: {
+        select_mark(mark) {
+            this.category_choses = mark.name
+            this.$router.push({path: '/catalog/' + this.category_choses});
+        },
+        opening_select() {
+            this.open_select = true
+        },
+        closing_select() {
+            this.open_select = false
+        },
         buyOneClick() {
             this.popup = true;
             let order_item = JSON.parse(localStorage.getItem('order'));
@@ -133,12 +163,12 @@ export default {
             this.added = false;
         },
         detailview(choosen_item){
-            this.detail = true;
-            this.item_id = choosen_item.id;
+            this.$router.push({path: '/catalog/' + choosen_item.mark.name + '/' + choosen_item.id});
             this.choose_item = choosen_item;
         },
         toCatalog() {
             this.detail = false;
+            this.$router.push({path: '/catalog/' + this.choose_item.mark.name});
         },
         addToBasket(item){
             let curr_basket = JSON.parse(localStorage.getItem('basket'));
@@ -429,5 +459,59 @@ export default {
     background-color: rgba($color: #000000, $alpha: 0.5);
     position: fixed;
     z-index: 998;
+}
+.select_mark{
+    width: 150px;
+    height: 25px;
+    float:right;
+    margin-top: 18px;
+    margin-left: 10px;
+    border-radius: 5px;
+    background-color: rgba($color: white, $alpha: 0.9);
+    position: relative;
+    cursor: pointer;
+}
+.selected_mark_name{
+    font-family: TextProLight;
+    color: black;
+    font-size: 11pt;
+    float: left !important;
+    margin-top: 5px;
+    margin-left: 7px;
+}
+.arrow_down {
+    float: right;
+    font-family: TextProLight;
+    color: #333333;
+    font-size: 18pt;
+    margin-top: -5px;
+    margin-right: 7px;
+}
+.option_mark{
+    position: absolute;
+    width: 100%;
+    top: 26px;
+    left: 0;
+    background-color: rgba($color: white, $alpha: 0.9);
+    border-radius: 5px;
+    height: auto;
+    max-height: 70px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: left;
+}
+.option_mark p:hover {
+    background-color: rgba($color: #cccccc, $alpha: 0.9);
+}
+.option_mark p{
+    font-family: TextProLight;
+    color: black;
+    font-size: 11pt;
+    width: 100%;
+    float:left;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    padding-left: 7px;
+    margin:0;
 }
 </style>

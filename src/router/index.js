@@ -15,7 +15,7 @@ Vue.use(Router)
 export default new Router({
     routes: [
       {
-        path: '/catalog',
+        path: '/catalog/:mark',
         name: 'Catalog',
         component: Catalog
       },
@@ -30,7 +30,7 @@ export default new Router({
         component: Delivery
       },
       {
-        path: '/contacts',
+        path: '/contacts/:part',
         name: 'Contacts',
         component: Contacts
       },
@@ -40,9 +40,9 @@ export default new Router({
         component: Instruction
       },
       {
-        path: '/detail:id',
+        path: '/catalog/:mark/:id',
         name: 'Detail',
-        component: Detail
+        component: Catalog
       },
       {
         path: '/',

@@ -1,7 +1,7 @@
 <template>
     <div id="order-buy-send">
         <div class="wrap-msg">
-            <img class="cross-exit" @click="$emit('closeOrderCallSend')" src="../assets/img/cancel.svg">
+            <img class="cross-exit" @click="$emit('closeOrderConfirm')" src="../assets/img/cancel.svg">
             <p>Покупка оформлена, ожидайте звонка</p>
         </div>
     </div>

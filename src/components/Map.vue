@@ -12,7 +12,7 @@ export default {
     mounted () {
         var map = new mapboxgl.Map({
             style: 'mapbox://styles/mapbox/dark-v9',
-            center: [39.1896162, 51.7258339],
+            center: [39.2328268, 51.7002724],
             zoom: 14,
             hash: false,
             container: 'map'
@@ -24,7 +24,7 @@ export default {
             el.className = 'marker';
 
             var marker = new mapboxgl.Marker(el)
-            .setLngLat([39.1896162, 51.7258339])
+            .setLngLat([39.2328268, 51.7002724])
             .addTo(map);
     },
 }

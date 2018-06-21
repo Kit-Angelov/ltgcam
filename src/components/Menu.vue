@@ -20,11 +20,18 @@
               ГЛАВНАЯ
           </router-link>
           </div>
-        <div class="menu_elem menu_elem_second">
-          <router-link to="/catalog">
+        <div class="menu_elem menu_elem_second" @mouseover="catalog_over(true)" @mouseout="catalog_over(false)">
+          <router-link :to="{path: '/catalog/' + category[0].name}">
             РЕГИСТРАТОРЫ
           </router-link>
-          </div>
+          <transition name="fade">
+            <div class="drop_down_menu drop_down_catalog" v-if="drop_catalog" @mouseover="catalog_over(true)">
+              <router-link :to="{path: '/catalog/' + mark.name}" v-for="mark in category" :key="mark.id">
+                {{mark.name}}
+              </router-link>
+            </div>
+          </transition>
+        </div>
         <div class="menu_elem menu_elem_third">
           <router-link to="/instruction">
             УСТАНОВКА
@@ -35,10 +42,20 @@
             ДОСТАВКА
           </router-link>
           </div>
-        <div class="menu_elem menu_elem_five">
-          <router-link to="/contacts">
+        <div class="menu_elem menu_elem_five" @mouseover="contacts_over(true)" @mouseout="contacts_over(false)">
+          <router-link to="/contacts/map">
             КОНТАКТЫ
           </router-link>
+          <transition name="fade">
+          <div class="drop_down_menu drop_down_contacts" v-if="drop_contacts" @mouseover="contacts_over(true)">
+            <router-link to="/contacts/about">
+              О НАС
+            </router-link>
+            <router-link to="/contacts/partners">
+              ПАРТНЁРАМ
+            </router-link>
+          </div>
+          </transition>
         </div>
       </div>
       <div class="right_part">
@@ -64,20 +81,38 @@
 </template>
 
 <script>
+import host from './host.js';
 export default {
   name: 'Menu',
 
   data () {
     return {
+      drop_contacts: false,
+      drop_catalog: false,
+      category: null,
     }
+  },
+  mounted () {
+    this.$store.dispatch('checkBasket')
+    this.$http.get(host + 'marks/').then(function(response) {
+          this.category = response.data;
+          console.log(response)
+      }, function(error) {
+          console.log(error)
+      });
   },
   computed: {
     basketState(){
       return this.$store.state.basketState
     }
   },
-  mounted() {
-    this.$store.dispatch('checkBasket');
+  methods: {
+    contacts_over(value) {
+      this.drop_contacts = value
+    },
+    catalog_over(value) {
+      this.drop_catalog = value
+    },
   },
 }
 </script>
@@ -89,6 +124,7 @@ a {
 .menu_elem{
   float: left;
   padding-top: 16px;
+  position: relative;
 }
 .menu_elem:nth-child(1){
   width: 17%;
@@ -131,7 +167,6 @@ a {
 }
 .menu_elem_five:hover::after{
   width: 68px;
-  
 }
 
 #wrap_menu {
@@ -141,7 +176,7 @@ a {
     position: absolute;
     top: 5vh;
     left: 0;
-    z-index: 9;
+    z-index: 9999;
 }
 
 .menu_content {
@@ -235,5 +270,22 @@ a {
 .phone p{
   font-family: TextProLight;
   font-size: 12pt;
+}
+.drop_down_menu{
+  position: absolute;
+  width: 100%;
+  height: 45px;
+  text-align: left;
+  top: 35px;
+  left: 0;
+  padding-top: 5px;
+}
+.drop_down_menu a{
+  width: 100%;
+  float: left;
+  margin-left: 12px;
+}
+.drop_down_menu a:hover{
+  color: #cccccc;
 }
 </style>

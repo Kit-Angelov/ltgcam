@@ -2,6 +2,9 @@
     <div id="detail">
         <div class="wrap">
             <div class="galery">
+                <transition name="fade">
+                <iframe v-if="video_example" :src="video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <div v-else class="galery_content">
                 <transition name="slide">
                     <div class="big_photo" :key="image">
                         <img :src="image" mode="out-in">
@@ -15,32 +18,43 @@
                         </div>
                     </div>
                 </div>
+                </div>
+                </transition>
             </div>
             <div class="content">
                 <div class="top_pane">
                     <p class="name">{{content.mark.name}} {{content.name}}</p>
                     <p class="price">{{content.price}} Руб</p>
                 </div>
-                <div class="descript">
-                    <p>
-                        {{content.description.text}}
-                    </p>
-                </div>
-                <div class="attr">
-                    <p v-for="option in content.main_options" :key="option">- {{option.text}}</p>
-                </div>
+                <transition name="slide">
+                    <div v-if="tech_opt" class="tech_opt_block">
+                        <p v-for="option in content.options" :key="option">- {{option.text}}</p>
+                    </div>
+                    <div v-else class="main_desc">
+                        <div class="descript">
+                            <p>
+                                {{content.description.text}}
+                            </p>
+                        </div>
+                        <div class="attr">
+                            <p v-for="option in content.main_options" :key="option">- {{option.text}}</p>
+                        </div>
+                    </div>
+                </transition>
                 <div class="links">
                     <div class="first_link link">
-                        <img class="link_ico" src="../assets/img/gear.svg">
-                        <p>Технические характеристики</p>
+                        <img @click="tech_opt_on()" class="link_ico" src="../assets/img/gear.svg">
+                        <p v-if="tech_opt" @click="tech_opt_on()">Описание</p>
+                        <p v-else @click="tech_opt_on()">Технические характеристики</p>
                     </div>
                     <div class="second_link link">
                         <img class="link_ico" src="../assets/img/file.svg">
                         <p>Инструкция по установке (.pdf)</p>
                     </div>
                     <div class="third_link link">
-                        <img class="link_ico" src="../assets/img/play.svg">
-                        <p>Примеры видео</p>
+                        <img @click="video_example_on()" class="link_ico" src="../assets/img/play.svg">
+                        <p v-if="video_example" @click="video_example_on()">Фотогалерея</p>
+                        <p v-else @click="video_example_on()">Примеры видео</p>
                     </div>
                 </div>
                 <div class="buy_wrap">
@@ -60,6 +74,9 @@ export default {
             content: {},
             itemid: this.itemId,
             image: "",
+            video: "https://www.youtube.com/embed/T7GDYujgluI",
+            video_example: false,
+            tech_opt: false,
         }
     },
     props: ['itemId'],
@@ -77,6 +94,12 @@ export default {
         },
         addToOrder() {
             localStorage.setItem('order', JSON.stringify(this.content));
+        },
+        video_example_on() {
+            this.video_example = !this.video_example
+        },
+        tech_opt_on() {
+            this.tech_opt = !this.tech_opt
         }
     },
 }
@@ -173,12 +196,14 @@ export default {
 .name{
     margin-top:0;
     font-size: 20pt;
+    margin-bottom: 20px;
     font-family: TextProMedium;
     float: left;
 }
 .price {
     margin-top:0;
     font-size: 16pt;
+    margin-bottom: 20px;
     font-family: TextProMedium;
     float: right;
     color: #cba35d;
@@ -191,6 +216,24 @@ export default {
 .descript p{
     font-size: 10pt;
     font-family: TextProLight;
+    margin-top: 8px;
+}
+.tech_opt_block{
+    width: 100%;
+    height: auto;
+    float: left;
+    text-align: left;
+}
+.tech_opt_block p{
+    line-height: 0.5;
+    font-size: 12pt;
+    font-family: TextProLight;
+}
+.main_desc{
+    width: 100%;
+    height: auto;
+    float: left;
+    text-align: left;
 }
 .attr{
     width: 100%;
@@ -222,13 +265,14 @@ export default {
     float: left;
     height: auto;
     margin-top: 5px;
-    cursor: pointer;
+
 }
 .link img{
     width: 18px;
     height: 18px;
     float: left;
-    object-fit: cover
+    object-fit: cover;
+    cursor: pointer;
 }
 .link p {
     margin-top: 2px;
@@ -238,6 +282,7 @@ export default {
     font-family: TextProLight;
     text-decoration: underline;
     float: left;
+    cursor: pointer;
 }
 .buy_wrap{
     width: 30%;
@@ -271,6 +316,20 @@ export default {
     margin-bottom: 4px;
     margin-top: 15px;
     cursor: pointer;
+}
+.galery_content{
+    width: 100%;
+    height: 100%;
+}
+.galery iframe{
+    width: 100%;
+    height: 100%;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }
 </style>
 
