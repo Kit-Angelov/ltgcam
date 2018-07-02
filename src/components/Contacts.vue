@@ -34,7 +34,7 @@
                                         <p class="first_left_text">Наша электронная почта:</p>
                                         <p class="first_left_email" @click="openEmail()">info@ltgcam.ru</p>
                                         <p class="first_left_text">Наш адрес:</p>
-                                        <p class="first_left_adres">г. Воронеж, ул. Ломоносова, дом 2б</p>
+                                        <p class="first_left_adres">г. Воронеж, ул. Ломоносова, 2Б</p>
                                         <button class="order_call" @click="ordercall()">ЗАКАЗАТЬ ЗВОНОК</button>
                                         </div>
                                         <div v-else>
@@ -76,29 +76,19 @@
                                     <td>
                                         <div class="persons">
                                             <div class="person">
-                                                <img src="../assets/img/pidr.png">
-                                                <p class="first_name">Лорем Инпус</p>
-                                                <p class="second_name">Долор Сит Амет</p>
+                                                <img src="../assets/img/bulavincev.jpg">
+                                                <p class="first_name">Булавинцев Борис</p>
+                                                <p class="second_name">Продажи</p>
                                             </div>
                                             <div class="person">
-                                                <img src="../assets/img/pidr.png">
-                                                <p class="first_name">Лорем Инпус</p>
-                                                <p class="second_name">Долор Сит Амет</p>
+                                                <img src="../assets/img/lobanov.jpg">
+                                                <p class="first_name">Лобанов Семен</p>
+                                                <p class="second_name">Продажи</p>
                                             </div>
                                             <div class="person">
-                                                <img src="../assets/img/pidr.png">
-                                                <p class="first_name">Лорем Инпус</p>
-                                                <p class="second_name">Долор Сит Амет</p>
-                                            </div>
-                                            <div class="person">
-                                                <img src="../assets/img/pidr.png">
-                                                <p class="first_name">Лорем Инпус</p>
-                                                <p class="second_name">Долор Сит Амет</p>
-                                            </div>
-                                            <div class="person">
-                                                <img src="../assets/img/pidr.png">
-                                                <p class="first_name">Лорем Инпус</p>
-                                                <p class="second_name">Долор Сит Амет</p>
+                                                <img src="../assets/img/gulaev.jpg">
+                                                <p class="first_name">Гуляев Владимир</p>
+                                                <p class="second_name">Производство</p>
                                             </div>
                                         </div>
                                     </td>
@@ -532,6 +522,8 @@ export default {
     height: auto;
     object-fit: cover;
     float: left;
+    border-radius: 1000px;
+    margin-bottom: 10px;
 }
 .first_name{
     font-size: 14pt;

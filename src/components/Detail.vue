@@ -28,7 +28,34 @@
                 </div>
                 <transition name="slide">
                     <div v-if="tech_opt" class="tech_opt_block">
-                        <p v-for="option in content.options" :key="option">- {{option.text}}</p>
+                        <p>&#9679; Чипсет: {{content.options.chipset}}</p>
+                        <p>&#9679; Кол-во пикселей: {{content.options.pixel}}</p>
+                        <p>&#9679; Сенсор: {{content.options.sensor}}</p>
+                        <p>&#9679; Размер матрицы: {{content.options.matrix}}</p>
+                        <p>&#9679; Угол обзора: {{content.options.corner}}</p>
+                        <p>&#9679; Микрофон: {{content.options.microphone}}</p>
+                        <p>&#9679; SD карта: {{content.options.sd_card}}</p>
+                        <p>&#9679; Рабочая температура: {{content.options.work_temp}}</p>
+                        <p>&#9679; Портребление тока: {{content.options.amperage}}</p>
+                        <p class="option_part">Видео</p>
+                        <p>&#9679; Видео режимы: {{content.options.video_mode}}</p>
+                        <p>&#9679; Формат записи / Видеокодек: {{content.options.video_codec}}</p>
+                        <p>&#9679; Режим записи: {{content.options.video_rec_mode}}</p>
+                        <p class="option_part">Фото</p>
+                        <p>&#9679; Разрешение фото: {{content.options.photo_resol}}</p>
+                        <p>&#9679; Формат фото: {{content.options.photo_codec}}</p>
+                        <p class="option_part">Настройки</p>
+                        <p>&#9679; Продолжительность записи: {{content.options.current}}</p>
+                        <p>&#9679; Время: {{content.options.time}}</p>
+                        <p>&#9679; Синхронизация со смартфоном WDR: {{content.options.WDR}}</p>
+                        <p>&#9679; Скорость работы электронного затвора: {{content.options.shutter_speed}}</p>
+                        <p>&#9679; Баланс белого: {{content.options.white_balance}}</p>
+                        <p>&#9679; Частота: {{content.options.frequency}}</p>
+                        <p>&#9679; G-Сенсор: {{content.options.g_sensor}}</p>
+                        <p>&#9679; Интеграция с мультимедией автомобиля: {{content.options.integrations}}</p>
+                        <p>&#9679; Wi-Fi: {{content.options.Wi_Fi}}</p>
+                        <p>&#9679; Объектив: {{content.options.lens}}</p>
+                        <p>&#9679; Языки: {{content.options.language}}</p>
                     </div>
                     <div v-else class="main_desc">
                         <div class="descript">
@@ -49,7 +76,7 @@
                     </div>
                     <div class="second_link link">
                         <img class="link_ico" src="../assets/img/file.svg">
-                        <p>Инструкция по установке (.pdf)</p>
+                        <p>Инструкция по эксплуатации (.pdf)</p>
                     </div>
                     <div class="third_link link">
                         <img @click="video_example_on()" class="link_ico" src="../assets/img/play.svg">
@@ -220,14 +247,29 @@ export default {
 }
 .tech_opt_block{
     width: 100%;
-    height: auto;
+    height: 27vh;
     float: left;
     text-align: left;
+    overflow-y: auto;
 }
 .tech_opt_block p{
-    line-height: 0.5;
-    font-size: 12pt;
+    line-height: 1;
+    font-size: 10pt;
     font-family: TextProLight;
+}
+.tech_opt_block::-webkit-scrollbar {
+    width: 10px;
+}
+
+.tech_opt_block::-webkit-scrollbar-track {
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.tech_opt_block::-webkit-scrollbar-thumb {
+    background-color: rgba($color: #ffffff, $alpha: 0.2);
+    border-radius: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
 }
 .main_desc{
     width: 100%;

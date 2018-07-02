@@ -25,10 +25,12 @@
             РЕГИСТРАТОРЫ
           </router-link>
           <transition name="fade">
+            <div class="drop_down_wrap">
             <div class="drop_down_menu drop_down_catalog" v-if="drop_catalog" @mouseover="catalog_over(true)">
               <router-link :to="{path: '/catalog/' + mark.name}" v-for="mark in category" :key="mark.id">
-                {{mark.name}}
+                {{mark.name.toUpperCase()}}
               </router-link>
+            </div>
             </div>
           </transition>
         </div>
@@ -47,6 +49,7 @@
             КОНТАКТЫ
           </router-link>
           <transition name="fade">
+          <div class="drop_down_wrap">
           <div class="drop_down_menu drop_down_contacts" v-if="drop_contacts" @mouseover="contacts_over(true)">
             <router-link to="/contacts/about">
               О НАС
@@ -54,6 +57,7 @@
             <router-link to="/contacts/partners">
               ПАРТНЁРАМ
             </router-link>
+          </div>
           </div>
           </transition>
         </div>
@@ -271,21 +275,41 @@ a {
   font-family: TextProLight;
   font-size: 12pt;
 }
-.drop_down_menu{
+.drop_down_wrap{
   position: absolute;
   width: 100%;
-  height: 45px;
+  height: auto;
   text-align: left;
   top: 35px;
   left: 0;
   padding-top: 5px;
 }
-.drop_down_menu a{
+.drop_down_wrap a{
   width: 100%;
   float: left;
   margin-left: 12px;
+  margin-right: 12px;
+  font-family: TextProMedium;
+  font-size: 10pt;
+
 }
-.drop_down_menu a:hover{
+.drop_down_wrap a:hover{
   color: #cccccc;
+}
+.drop_down_menu{
+  background-color: rgba($color: #000000, $alpha: .3);
+  border-radius: 2px;
+  position: absolute;
+  height: auto;
+  text-align: left;
+  padding-top: 8px;
+  padding-bottom: 5px;
+}
+.drop_down_catalog{
+  width: 250%;
+  left: -75%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(auto, 1fr);
 }
 </style>

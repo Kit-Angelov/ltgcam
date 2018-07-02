@@ -484,7 +484,8 @@ export default {
     font-family: TextProLight;
     color: #333333;
     font-size: 18pt;
-    margin-top: -5px;
+    margin-top: 0;
+    line-height: 0.8;
     margin-right: 7px;
 }
 .option_mark{
@@ -495,8 +496,8 @@ export default {
     background-color: rgba($color: white, $alpha: 0.9);
     border-radius: 5px;
     height: auto;
-    max-height: 70px;
-    overflow-y: auto;
+    max-height: 85px;
+    overflow-y: scroll;
     overflow-x: hidden;
     text-align: left;
 }
@@ -504,14 +505,14 @@ export default {
     background-color: rgba($color: #cccccc, $alpha: 0.9);
 }
 .option_mark p{
+    width: calc(100% - 7px);
     font-family: TextProLight;
     color: black;
+    float: left;
     font-size: 11pt;
-    width: 100%;
-    float:left;
     padding-top: 5px;
     padding-bottom: 3px;
     padding-left: 7px;
-    margin:0;
+    margin: auto;
 }
 </style>
