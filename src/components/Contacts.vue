@@ -76,7 +76,7 @@
                                     <td>
                                         <div class="persons">
                                             <div class="person">
-                                                <img src="../assets/img/bulavincev.jpg">
+                                                <img src="../assets/img/bulavintsev.jpg">
                                                 <p class="first_name">Булавинцев Борис</p>
                                                 <p class="second_name">Продажи</p>
                                             </div>
@@ -86,7 +86,7 @@
                                                 <p class="second_name">Продажи</p>
                                             </div>
                                             <div class="person">
-                                                <img src="../assets/img/gulaev.jpg">
+                                                <img src="../assets/img/gulyaev.jpg">
                                                 <p class="first_name">Гуляев Владимир</p>
                                                 <p class="second_name">Производство</p>
                                             </div>
@@ -506,7 +506,7 @@ export default {
 }
 .persons{
     width: 80%;
-    height: 50%;
+    height: 30%;
     display: grid;
     grid-gap: 5%;
     grid-template-columns: repeat(auto-fit, 28%);

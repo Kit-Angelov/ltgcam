@@ -76,7 +76,7 @@
                     </div>
                     <div class="second_link link">
                         <img class="link_ico" src="../assets/img/file.svg">
-                        <p>Инструкция по эксплуатации (.pdf)</p>
+                        <p @click="download_instruction()">Инструкция по эксплуатации (.pdf)</p>
                     </div>
                     <div class="third_link link">
                         <img @click="video_example_on()" class="link_ico" src="../assets/img/play.svg">
@@ -127,6 +127,9 @@ export default {
         },
         tech_opt_on() {
             this.tech_opt = !this.tech_opt
+        },
+        download_instruction() {
+            window.location.href = host + 'static/shop/instruction.pdf'
         }
     },
 }
