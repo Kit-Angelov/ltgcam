@@ -84,7 +84,7 @@
                       </div>
                     </div>
                     <div class="button_download">
-                      <router-link to="/catalog">
+                      <router-link :to="{path: '/catalog/' + category[0].name}">
                       <button>ВЫБРАТЬ КАМЕРУ</button>
                       </router-link>
                     </div>
@@ -165,7 +165,7 @@
                       </div>
                     </div>
                     <div class="button_download">
-                      <router-link to="/catalog">
+                      <router-link :to="{path: '/catalog/' + category[0].name}">
                       <button>СДЕЛАТЬ ЗАКАЗ</button>
                       </router-link>
                     </div>
@@ -238,7 +238,7 @@
                       </div>
                     </div>
                     <div class="button_download">
-                      <a href="#">
+                      <a href="https://play.google.com/store/apps/details?id=com.zxkeji.ltg&hl=ru" target="_blank">
                       <button>СКАЧАТЬ ПРИЛОЖЕНИЕ</button>
                       </a>
                     </div>
@@ -284,8 +284,9 @@
 
 <script>
 
-import FullPage from 'vue-fullpage.js';
+import FullPage from 'vue-fullpage.js'
 import SocialCopir from './SocialCopir.vue'
+import host from './host.js'
 
 export default {
   name: 'Main',
@@ -303,13 +304,20 @@ export default {
       video_state: true,
       cur_page: 1,
       options: {
-            paddingTop: '0',
-            navigation: true,
-          }
+        paddingTop: '0',
+        navigation: true,
+      },
+      category: null
     }
   },
   created() {
-    this.video = this.video1
+    this.video = this.video1,
+    this.$http.get(host + 'marks/').then(function(response) {
+        this.category = response.data;
+        console.log(response)
+    }, function(error) {
+        console.log(error)
+    });
   },
   methods: {
     next(){

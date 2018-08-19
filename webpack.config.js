@@ -100,7 +100,7 @@ module.exports = {
     noInfo: true,
     overlay: true,
     port: 8080,
-    host: '0.0.0.0'
+    host: 'localhost'
   },
   performance: {
     hints: false

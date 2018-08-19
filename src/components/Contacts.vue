@@ -57,7 +57,6 @@
                         <table>
                                 <tr>
                                     <td>
-                                        <p class="third_left_title team_ltg">КОМАНДА LTG CAM</p>
                                          <p class="second_left_text team_ltg">
                                             Мы - Команда молодых и крайне амбициозных профессионалов.<br/>
                                             Ответим на любые вопросы и поможем в любой ситуации.<br/>

@@ -20,8 +20,8 @@
               ГЛАВНАЯ
           </router-link>
           </div>
-        <div class="menu_elem menu_elem_second" @mouseover="catalog_over(true)" @mouseout="catalog_over(false)">
-          <router-link :to="{path: '/catalog/' + category[0].name}">
+        <div class="menu_elem menu_elem_second menu_disabled" @mouseover="catalog_over(true)" @mouseout="catalog_over(false)">
+          <router-link to="">
             РЕГИСТРАТОРЫ
           </router-link>
           <transition name="fade">
@@ -291,13 +291,12 @@ a {
   margin-right: 12px;
   font-family: TextProMedium;
   font-size: 10pt;
-
 }
 .drop_down_wrap a:hover{
   color: #cccccc;
 }
 .drop_down_menu{
-  background-color: rgba($color: #000000, $alpha: .3);
+  background-color: rgba($color: #070506, $alpha: .6);
   border-radius: 2px;
   position: absolute;
   height: auto;
@@ -311,5 +310,11 @@ a {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(auto, 1fr);
+}
+.drop_down_catalog a{
+  cursor: pointer !important;
+}
+.menu_disabled a{
+  cursor: default;
 }
 </style>

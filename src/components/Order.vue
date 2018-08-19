@@ -13,7 +13,7 @@
                 <p>Заказ на сумму:</p>
                 <p>{{order_all.sum}} руб.</p>
             </div>
-            <div class="right">
+            <!-- <div class="right">
                 <p class="right_title">Оплата:</p>
                 <div class="label label_first" @click="check(true)">
                     <div class="radio">
@@ -28,7 +28,7 @@
                     </div>
                     <p class="label_text">Банковская карта</p>
                 </div>
-            </div>
+            </div> -->
             <div class="but_wrap">
                 <button type="submit">ПОДТВЕРДИТЬ</button>
             </div>
@@ -91,7 +91,7 @@ export default {
 
 .wrap{
     width:420px;
-    height: 420px;
+    height: 380px;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -147,7 +147,7 @@ textarea{
     resize: none;
 }
 .left{
-    width: 50%;
+    width: 100%;
     height: auto;
     float: left;
     text-align: left;
@@ -156,13 +156,12 @@ textarea{
     font-size: 12pt;
     font-family: TextProMedium;
     margin-bottom: 0;
-}
-.left p:nth-of-type(2){
-    margin-top:6px;
+    float:left;
+    margin-right: 10px;
 }
 .right{
     width:50%;
-    height:auto;
+    height:100px;
     float:left;
     text-align: left;
 }
@@ -214,8 +213,10 @@ textarea{
 }
 .but_wrap{
     width: 100%;
+    float: left;
     height: auto;
-    text-align: center
+    text-align: center;
+    margin-top: 40px;
 }
 button{
     background-color: #cf3835;

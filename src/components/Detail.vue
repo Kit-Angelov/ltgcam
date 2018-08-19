@@ -6,15 +6,15 @@
                 <iframe v-if="video_example" :src="video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 <div v-else class="galery_content">
                 <transition name="slide">
-                    <div class="big_photo" :key="image">
+                    <div class="big_photo" @click="open_detail_img()" :key="image">
                         <img :src="image" mode="out-in">
                     </div>
                 </transition>
                 <div class="miniature">
                     <p>Ещё фото</p>
                     <div class="miniature_wrap">
-                        <div class="mini_wrap" v-for='(item, index) in content.galery_photo' :key="item">
-                            <img :src="item.photo" @click="choose(index)"> 
+                        <div class="mini_wrap" v-for='(item, index) in detail_photo' :key="item.id">
+                            <img :src="item" @click="choose(index)"> 
                         </div>
                     </div>
                 </div>
@@ -90,6 +90,22 @@
                 </div>
             </div>
         </div>
+        <div class="detail_photo" v-if="detailImageFlag">
+            <img class="close_detail_image" @click="detailImageFlag = false" src="../assets/img/close.svg">
+            <div class="arrow_wrap arrow-back">
+                <img class="arrow" @click="detail_back()" src="../assets/img/back.svg">
+            </div>
+            <div class="arrow_wrap arrow-next">
+                <img class="arrow" @click="detail_next()" src="../assets/img/next.svg">
+            </div>
+            
+            <div class="detail_photo_wrapper">
+                <transition name="myfade">
+                    <img class=detail_photo_img :src="detailImage" :key="detailImage">
+                </transition>
+            </div>
+        </div>
+        <div class="overlay_detail_photo" v-if="detailImageFlag"></div>
     </div>
 </template>
 <script>
@@ -104,6 +120,11 @@ export default {
             video: "https://www.youtube.com/embed/T7GDYujgluI",
             video_example: false,
             tech_opt: false,
+            detail_photo: [],
+            detailImage: '',
+            detailImageFlag: false,
+            currentIndexDetal: 0,
+            allIndexDetail: 0
         }
     },
     props: ['itemId'],
@@ -111,13 +132,39 @@ export default {
         this.$http.get(host + 'auto_model/' + this.itemid.toString() + '/').then(function(response) {
           this.content = response.data;
           this.image = response.data.main_photo.photo;
+          this.detail_photo.push(response.data.main_photo.photo)
+          for (let item of response.data.galery_photo) {
+              this.detail_photo.push(item.photo)
+          }
       }, function(error) {
           alert(error)
       });
     },
     methods: {
+        detail_next () {
+            if (this.currentIndexDetal == this.allIndexDetail) {
+                this.currentIndexDetal = 0
+            } else {
+                this.currentIndexDetal += 1
+            }
+            this.detailImage = this.detail_photo[this.currentIndexDetal]
+        },
+        detail_back () {
+            if (this.currentIndexDetal == 0) {
+                this.currentIndexDetal = this.allIndexDetail
+            } else {
+                this.currentIndexDetal -= 1
+            }
+            this.detailImage = this.detail_photo[this.currentIndexDetal]
+        },
+        open_detail_img () {
+            this.currentIndexDetal = this.detail_photo.indexOf(this.image)
+            this.allIndexDetail = this.detail_photo.length - 1
+            this.detailImage = this.detail_photo[this.currentIndexDetal]
+            this.detailImageFlag = true
+        },
         choose(index) {
-            this.image = this.content.galery_photo[index].photo
+            this.image = this.detail_photo[index]
         },
         addToOrder() {
             localStorage.setItem('order', JSON.stringify(this.content));
@@ -162,6 +209,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
 }
 .miniature{
     position: absolute;
@@ -374,6 +422,87 @@ export default {
   transition: opacity .2s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
+.detail_photo{
+    height: 80vh;
+    width: 80vw;
+    position: fixed;
+    z-index: 99999;
+    top: 50%;
+    left: 50%;
+    margin-top: -40vh;
+    margin-left: -40vw;
+}
+.detail_photo_wrapper{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.detail_photo_img{
+    object-fit: cover;
+    height: 100%;
+    width: auto;
+}
+.overlay_detail_photo{
+    position: fixed;
+    z-index: 99998;
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+.arrow_wrap{
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 50%;
+    margin-top: -25px;
+    border-radius: 50%;
+}
+.arrow_wrap:hover {
+    width: 46px;
+    height: 46px;
+    margin-top: -27px;
+    border: 2px solid rgba($color: whitesmoke, $alpha: .8);
+}
+.arrow {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    cursor: pointer;
+}
+.arrow-back{
+    left: 5vw;
+}
+.arrow-back:hover {
+    left: calc(5vw - 2px);
+}
+.arrow-next{
+    right: 5vw;
+}
+.arrow-next:hover {
+    right: calc(5vw + 2px);
+}
+.arrow-back img{
+    padding: 9px 14px 11px 8px;
+}
+.arrow-next img{
+    padding: 9px 10px 11px 12px;
+}
+.close_detail_image{
+    position: fixed;
+    top: 20px;
+    right:20px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.myfade-enter-active, .myfade-leave-active {
+  transition: opacity .2s;
+}
+.myfade-enter, .myfade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
   opacity: 0;
 }
 </style>
