@@ -51,9 +51,9 @@
           <transition name="fade">
           <div class="drop_down_wrap">
           <div class="drop_down_menu drop_down_contacts" v-if="drop_contacts" @mouseover="contacts_over(true)">
-            <router-link to="/contacts/about">
+            <!-- <router-link to="/contacts/about">
               О НАС
-            </router-link>
+            </router-link> -->
             <router-link to="/contacts/partners">
               ПАРТНЁРАМ
             </router-link>

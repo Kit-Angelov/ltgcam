@@ -7,7 +7,7 @@
                     <img class="con_arrow con_up" src="../assets/img/down-arrow.svg">
                 </div>
                 <div class="con_navigate_line con_navigate_line_top"></div>
-                <div class="con_navigate_line con_navigate_line_mid"></div>
+                <!-- <div class="con_navigate_line con_navigate_line_mid"></div> -->
                 <div class="con_navigate_arrow con_navigate_arrow_down" @click="next()">
                     <img class="con_arrow con_down" src="../assets/img/down-arrow.svg">
                 </div>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div class="section con-second_section" id="second">
+            <!-- <div class="section con-second_section" id="second">
                 <div class="con-wrap_section">
                     <div class="con-left_part con-part">
                         <div class="con-second_left_content_wrap">
@@ -62,7 +62,6 @@
                                             Ответим на любые вопросы и поможем в любой ситуации.<br/>
                                             Вашему вниманию коллектив компании LTG CAM.
                                         </p>
-                                        <!-- <p class="second_left_text"></p> -->
                                     </td>
                                 </tr>
                         </table>
@@ -96,7 +95,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="section con-third_section">
                 <div class="con-wrap_section">
                     <div class="con-left_part con-part">
@@ -190,9 +189,9 @@ export default {
     },
     mounted() {
         let rel_path = this.$route.params.part
-        if (rel_path == 'about') {
+        if (rel_path == 'partners') {
             this.next()
-        } else if (rel_path == 'partners') {
+        } else if (rel_path == 'about') {
             this.moveTo(3)
         } else {
 
@@ -201,9 +200,9 @@ export default {
     watch: {
         '$route' (to, from) {
             let rel_path = this.$route.params.part
-            if (rel_path == 'about') {
+            if (rel_path == 'partners') {
                 this.moveTo(2)
-            } else if (rel_path == 'partners') {
+            } else if (rel_path == 'about') {
                 this.moveTo(3)
             } else {
                 this.moveTo(1)
@@ -587,6 +586,7 @@ export default {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
 }
 .con_up{
   transform: rotate(180deg);
@@ -596,7 +596,7 @@ export default {
   width: 20px;
   top:50%;
   left: 87%;
-  height: 160px;
+  height: 80px;
   margin-left: -15px;
   margin-top: -90px !important;
   z-index: 9;
